@@ -1,0 +1,10 @@
+@import '../utils/variables';
+
+.layout-default {
+    display: flex;
+}
+
+.main {
+    flex: 1;
+    height: 100vh;
+}

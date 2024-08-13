@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const connectString = `mongodb://127.0.0.1:27017/socialMediaKata`
+const {db: {host, port, name}} = require('../configs/config.mongodb')
+const connectString = `mongodb://${host}:${port}/${name}`
 
 class Database {
     constructor() {
@@ -14,7 +15,7 @@ class Database {
         }
 
         mongoose.connect(connectString).then(_ => console.log(`Connected Mongodb Success!!!`))
-        .catch( err => console.log(`Error connect!!!`))
+        .catch( err => console.log(`Error connect database!!!\n`))
     }
 
     static getInstance() {
