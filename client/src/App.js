@@ -1,5 +1,5 @@
 import './app.scss'
-import AllRoute from './components/AllRoute';
+import AllRoute from './api/v1/components/AllRoute';
 
 function App() {
   return (

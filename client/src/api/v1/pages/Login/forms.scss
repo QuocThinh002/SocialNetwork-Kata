@@ -1,0 +1,91 @@
+@import '../../utils/variables';
+
+
+.form {
+    background-color: $two-color;
+    width: 400px;
+    // border: 1px solid #000;
+    padding: 30px;
+    padding-bottom: 75px;
+    border-radius: 0.275rem;
+    margin-bottom: 25px;
+
+    &--logo {
+        margin-bottom: 10px;
+        height: 90px;
+        text-align: center;
+        img {
+            height: 100%;
+            // aspect-ratio: 1/1;  
+            object-fit: contain;
+            // border-radius: 50%;
+        }
+    }
+
+    &__group {
+        margin-bottom: 1.75rem;
+        width: 100%;
+        background-color: $two-color;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    &__input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        background-color: $three-color;
+        border-radius: 0.375rem;
+        font-size: 1.5rem;
+        outline: 1px solid $three-color;
+
+        &:focus {
+            outline-color:  $primary-color;
+        }
+    }
+
+    &__error {
+        color: $three-text-color;
+    }
+
+    &__button {
+        width: 100%;
+        background-color: $two-color;
+        padding: 8px;
+        border: none;
+        background-color: $primary-color;
+        color: $two-color;
+        border-radius: 0.375rem;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+
+        &:hover {
+            background-color: $one-color;
+        }
+    }
+
+    &__signin {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        cursor: pointer;
+        span:hover {
+            color: $one-color;
+        }
+    }
+    &__signup {
+        text-align: center;
+        font-size: 1.2rem;
+        color: $two-text-color;
+        span span {
+            margin-left: 6px;
+            color: $one-text-color;
+            cursor: pointer;
+            &:hover {
+                color: $one-color;
+            }
+        }
+    }
+}

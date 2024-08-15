@@ -1,0 +1,56 @@
+{
+  "navbar": {
+    "home": "Trang chủ",
+    "profile": "Hồ sơ",
+    "friends": "Bạn bè",
+    "notifications": "Thông báo",
+    "messages": "Tin nhắn",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "language": "Ngôn ngữ"
+  },
+  "home": {
+    "create_post": "Bạn đang nghĩ gì, {{name}}?",
+    "no_posts": "Không có bài viết nào để hiển thị.",
+    "like": "Thích",
+    "comment": "Bình luận",
+    "share": "Chia sẻ",
+    "view_more_comments": "Xem thêm bình luận"
+  },
+  "profile": {
+    "friends": "Bạn bè",
+    "photos": "Ảnh",
+    "about": "Giới thiệu",
+    "edit_profile": "Chỉnh sửa hồ sơ",
+    "no_friends": "Không có bạn bè nào để hiển thị.",
+    "no_photos": "Không có ảnh nào để hiển thị."
+  },
+  "notifications": {
+    "new": "Mới",
+    "see_all": "Xem tất cả thông báo",
+    "no_notifications": "Không có thông báo"
+  },
+  "messages": {
+    "new_message": "Tin nhắn mới",
+    "search_placeholder": "Tìm kiếm bạn bè",
+    "no_messages": "Không có tin nhắn",
+    "send": "Gửi"
+  },
+  "settings": {
+    "account": "Cài đặt tài khoản",
+    "privacy": "Cài đặt quyền riêng tư",
+    "language": "Ngôn ngữ",
+    "help": "Trợ giúp & Hỗ trợ",
+    "delete_account": "Xóa tài khoản"
+  },
+  "post": {
+    "edit_post": "Chỉnh sửa bài viết",
+    "delete_post": "Xóa bài viết",
+    "comment_placeholder": "Viết bình luận..."
+  },
+  "errors": {
+    "required_field": "Trường này là bắt buộc",
+    "network_error": "Lỗi mạng. Vui lòng thử lại sau.",
+    "something_went_wrong": "Có lỗi xảy ra. Vui lòng thử lại."
+  }
+}

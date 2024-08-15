@@ -1,0 +1,20 @@
+@url_dev = http://localhost:3052/api/v1
+
+### signup
+POST {{url_dev}}/kata/signup
+Content-Type: application/json
+
+{
+    "name": "Nguyen Quoc Thinh",
+    "email": "thinhb2106815@student.ctu.edu.vn",
+    "password": "fghj6789"
+}
+
+###signin
+POST {{url_dev}}/kata/signin
+Content-Type: application/json
+
+{
+    "email": "quickthink@gmail.com",
+    "password": "fghj6789"
+}

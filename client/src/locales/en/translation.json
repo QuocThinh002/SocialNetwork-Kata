@@ -1,0 +1,56 @@
+{
+  "navbar": {
+    "home": "Home",
+    "profile": "Profile",
+    "friends": "Friends",
+    "notifications": "Notifications",
+    "messages": "Messages",
+    "settings": "Settings",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "Home": {
+    "create_post": "What's on your mind, {{name}}?",
+    "no_posts": "No posts to show.",
+    "like": "Like",
+    "comment": "Comment",
+    "share": "Share",
+    "view_more_comments": "View more comments"
+  },
+  "profile": {
+    "friends": "Friends",
+    "photos": "Photos",
+    "about": "About",
+    "edit_profile": "Edit Profile",
+    "no_friends": "No friends to show.",
+    "no_photos": "No photos to show."
+  },
+  "notifications": {
+    "new": "New",
+    "see_all": "See all notifications",
+    "no_notifications": "No notifications"
+  },
+  "messages": {
+    "new_message": "New Message",
+    "search_placeholder": "Search for friends",
+    "no_messages": "No messages",
+    "send": "Send"
+  },
+  "settings": {
+    "account": "Account Settings",
+    "privacy": "Privacy Settings",
+    "language": "Language",
+    "help": "Help & Support",
+    "delete_account": "Delete Account"
+  },
+  "post": {
+    "edit_post": "Edit Post",
+    "delete_post": "Delete Post",
+    "comment_placeholder": "Write a comment..."
+  },
+  "errors": {
+    "required_field": "This field is required",
+    "network_error": "Network error. Please try again later.",
+    "something_went_wrong": "Something went wrong. Please try again."
+  }
+}
