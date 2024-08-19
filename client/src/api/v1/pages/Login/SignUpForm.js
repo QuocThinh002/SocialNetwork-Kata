@@ -1,27 +1,38 @@
 import React from 'react';
 import './forms.scss';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux'
+import { FaTriangleExclamation } from 'react-icons/fa6'
+import {useNavigate} from 'react-router-dom'
+
+import { signUp } from '../../store/actions/auth.action';
 
 const SignUpForm = ({ toggleLogin }) => {
   const { register, formState: { errors }, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const { messageSignUp } = useSelector(state => state.authReducer)
+
 
   const onSubmit = async (data) => {
     try {
-      // Chỉ lấy email và password từ data
-      const { name, email, password } = data;
-
-      
+      const { confirmPassword, ...payload } = data;
+      dispatch(signUp(payload))
+      navigate('/signup-success');
     } catch (error) {
       console.error("Error during submission:", error);
       alert("Submission has failed.");
     }
   };
 
-  return (
+  return (<>
     <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className='form--logo'>
         <img src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logo' />
       </div>
+
+      {messageSignUp && <p className='form__error__server'><FaTriangleExclamation /> {messageSignUp}</p>}
+
       <div className="form__group">
         <input
           {...register("name", { required: 'Name is required' })}
@@ -77,6 +88,7 @@ const SignUpForm = ({ toggleLogin }) => {
         <span>Already have an account?<span onClick={toggleLogin} >Sign In</span></span>
       </div>
     </form>
+  </>
   );
 };
 

@@ -2,18 +2,13 @@
 
 
 .sidebar-nav {
-    display: flex;
-
-    &__right-tab {
-        width: 350px;
-        border-right: 1px solid rgba(0, 0, 0, 0.2);
-    }
-}
-
-.nav-tabs {
-    background-color: $primary-color;
+    position: fixed;
+    left: 0;
+    top: 0;
     height: 100vh;
-    display: inline-flex;
+    width: 60px;
+    background-color: $primary-color;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -44,23 +39,26 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 60px;
+    }
 
-        :nth-child(n) {
-            padding: 8px;
-            cursor: pointer;
-
-            &:hover {
-                background-color: $one-color;
-            }
-        }
+    &__icon {
+        color: $four-text-color;
+        font-size: 28px;
+        width: 60px;
+        padding: 10px 0;
     }
 }
 
+
 .tooltip {
     position: relative;
-    display: inline-block;
+    // padding: 16px 0;
+    // width: 100%;
+    text-align: center;
+    cursor: pointer;
 
-    .tooltiptext {
+    &__text {
         visibility: hidden;
         background-color: black;
         color: #fff;
@@ -77,7 +75,11 @@
     }
 
     &:hover {
-        .tooltiptext {
+        background-color: $one-color;
+    }
+
+    &:hover> {
+        .tooltip__text {
             background-color: black;
             visibility: visible;
             opacity: 1;
@@ -85,8 +87,13 @@
     }
 }
 
-.language {
-    background-color: inherit;
-    padding: 0px!important;
-    border: none;
+.setting-box {
+    position: relative;
+
+    &__open {
+        position: absolute;
+        left: calc(100% + 10px);
+        bottom: 10px;
+    }
+
 }

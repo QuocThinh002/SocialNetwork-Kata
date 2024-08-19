@@ -14,6 +14,7 @@
         margin-bottom: 10px;
         height: 90px;
         text-align: center;
+
         img {
             height: 100%;
             // aspect-ratio: 1/1;  
@@ -41,17 +42,25 @@
         outline: 1px solid $three-color;
 
         &:focus {
-            outline-color:  $primary-color;
+            outline-color: $primary-color;
         }
     }
 
     &__error {
         color: $three-text-color;
+
+        &__server {
+            color: $three-text-color;
+            margin-bottom: 1.25rem;
+            padding: 10px;
+            background-color: $five-color;
+            border-radius: 0.375rem;
+            font-size: 1.5rem;
+        }
     }
 
     &__button {
         width: 100%;
-        background-color: $two-color;
         padding: 8px;
         border: none;
         background-color: $primary-color;
@@ -71,18 +80,22 @@
         justify-content: space-between;
         font-size: 1.2rem;
         cursor: pointer;
+
         span:hover {
             color: $one-color;
         }
     }
+
     &__signup {
         text-align: center;
         font-size: 1.2rem;
         color: $two-text-color;
+
         span span {
             margin-left: 6px;
             color: $one-text-color;
             cursor: pointer;
+
             &:hover {
                 color: $one-color;
             }

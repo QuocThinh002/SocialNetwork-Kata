@@ -5,9 +5,7 @@
     "friends": "Friends",
     "notifications": "Notifications",
     "messages": "Messages",
-    "settings": "Settings",
-    "logout": "Logout",
-    "language": "Language"
+    "settings": "Settings"
   },
   "Home": {
     "create_post": "What's on your mind, {{name}}?",
@@ -41,7 +39,9 @@
     "privacy": "Privacy Settings",
     "language": "Language",
     "help": "Help & Support",
-    "delete_account": "Delete Account"
+    "delete_account": "Delete Account",
+    "logout": "Logout",
+    "dark_mode": "Dark mode"
   },
   "post": {
     "edit_post": "Edit Post",
@@ -52,5 +52,15 @@
     "required_field": "This field is required",
     "network_error": "Network error. Please try again later.",
     "something_went_wrong": "Something went wrong. Please try again."
+  },
+  "login": {
+    "signup": "Sign Up",
+    "signin": "Sign In",
+    "signout": "Sign Out",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "forgot_password": "Forgot Password?",
+    "name": "Name",
+    "already_account": "Already have an account?"
   }
 }

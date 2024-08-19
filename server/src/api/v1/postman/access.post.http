@@ -14,7 +14,12 @@ Content-Type: application/json
 POST {{url_dev}}/kata/signin
 Content-Type: application/json
 
+# {
+#     "email": "quickthink@gmail.com",
+#     "password": "fghj6789"
+# }
+
 {
-    "email": "quickthink@gmail.com",
+    "email": "quickthink123@gmail.com",
     "password": "fghj6789"
 }

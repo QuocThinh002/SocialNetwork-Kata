@@ -1,0 +1,50 @@
+@import '../../utils/variables';
+
+
+
+
+
+.setting-modal {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1), -1px -1px 4px rgba(0, 0, 0, 0.1);
+    background-color: $two-color;
+    padding: 10px;
+    border-radius: 4px;
+    width: 180px;
+    // background-color: green;
+    display: flex;
+    flex-direction: column;
+
+    button {
+        background-color: inherit;
+        padding: 0px !important;
+        border: none;
+    }
+
+    &__item {
+        // background-color: red;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 10px;
+        border-radius: 6px;
+        &:hover {
+            background-color: $three-color;
+        }
+
+        &__text {
+            white-space: nowrap;
+            font-size: 1.5rem;
+            font-weight: 500;
+            // margin-left: 10px;
+            flex: 1;
+            text-align: start;
+        }
+    }
+
+    &__icon {
+        color: $one-text-color;
+        font-size: 28px;
+        display: flex;
+    }
+
+}

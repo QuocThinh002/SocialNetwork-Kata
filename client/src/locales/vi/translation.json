@@ -5,9 +5,7 @@
     "friends": "Bạn bè",
     "notifications": "Thông báo",
     "messages": "Tin nhắn",
-    "settings": "Cài đặt",
-    "logout": "Đăng xuất",
-    "language": "Ngôn ngữ"
+    "settings": "Cài đặt"
   },
   "home": {
     "create_post": "Bạn đang nghĩ gì, {{name}}?",
@@ -41,7 +39,9 @@
     "privacy": "Cài đặt quyền riêng tư",
     "language": "Ngôn ngữ",
     "help": "Trợ giúp & Hỗ trợ",
-    "delete_account": "Xóa tài khoản"
+    "delete_account": "Xóa tài khoản",
+    "logout": "Đăng xuất",
+    "dark_mode": "Chế độ tối"
   },
   "post": {
     "edit_post": "Chỉnh sửa bài viết",
@@ -52,5 +52,15 @@
     "required_field": "Trường này là bắt buộc",
     "network_error": "Lỗi mạng. Vui lòng thử lại sau.",
     "something_went_wrong": "Có lỗi xảy ra. Vui lòng thử lại."
+  },
+  "login": {
+    "signup": "Đăng ký",
+    "signin": "Đăng nhập",
+    "signout": "Đăng xuất",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác nhận mật khẩu",
+    "forgot_password": "Quên mật khẩu?",
+    "name": "Tên",
+    "already_account": "Bạn đã có tài khoản?"
   }
 }

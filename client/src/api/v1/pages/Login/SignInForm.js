@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {FaTriangleExclamation} from 'react-icons/fa6'
 
 import './forms.scss';
 import { signIn } from '../../store/actions/auth.action';
+import {path} from '../../utils/constant'
+
 
 const SignInForm = ({ toggleLogin }) => {
   const { register, formState: { errors }, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, token } = useSelector(state => state.authReducer)
-  
+  let { isLoggedIn, message } = useSelector(state => state.authReducer)
   useEffect(() => {
     if (isLoggedIn) navigate('/')
   }, [isLoggedIn])
@@ -31,6 +33,9 @@ const SignInForm = ({ toggleLogin }) => {
       <div className='form--logo'>
         <img src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logo' />
       </div>
+      
+      {message && <p className='form__error__server'><FaTriangleExclamation/> {message}</p>}
+      
       <div className="form__group">
         <input 
           {...register("email", { required: 'Email is required' })} 
@@ -58,7 +63,7 @@ const SignInForm = ({ toggleLogin }) => {
       </div>
       <button type="submit" className="form__button">Sign In</button>
       <div className='form__signin'>
-        <span className='text-[blue] hover:text-orange-500 cursor-pointer'>Forgot Password?</span>
+        <span onClick={() => navigate(`/${path.FORGOT_PASSWORD}`)} className='text-[blue] hover:text-orange-500 cursor-pointer'>Forgot Password?</span>
         <span onClick={toggleLogin} className="cursor-pointer">Sign Up?</span>
       </div>
     </form>

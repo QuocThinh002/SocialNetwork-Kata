@@ -6,10 +6,9 @@ export const apiSignUp = async (payload) => {
     try {
         const response = await axiosConfig({
             method: 'post',
-            url: `${domain}/auth/kata/signup`,
+            url: `${domain}/kata/signup`,
             data: payload
         })
-        console.log(response)
         return response;
     } catch (error) {
 
@@ -24,10 +23,33 @@ export const apiSignIn = async (payload) => {
             url: `${domain}/kata/signin`,
             data: payload
         })
-
-        console.log(response)
         return response
     } catch (error) {
 
+    }
+}
+
+export const apiVerifyAccount = async (verificationToken) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get', 
+            url: `${domain}/kata/verify-account/${verificationToken}`
+        })
+        return response
+    } catch(error) {
+        
+    }
+}
+
+export const apiForgotPassword = async (payload) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post', 
+            url: `${domain}/kata/forgot-password`,
+            data: payload
+        })
+        return response
+    } catch (error) {
+        
     }
 }

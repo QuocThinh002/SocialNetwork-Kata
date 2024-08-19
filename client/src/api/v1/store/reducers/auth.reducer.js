@@ -2,8 +2,11 @@ import actionTypes from "../actions/actionTypes";
 
 const initState = {
     isLoggedIn: false,
-    token: null,
-    message: ''
+    accessToken: null,
+    message: '',
+    messageSignUp: '',
+    signUpSuccess: false,
+    userInfo: {}
 }
 
 const authReducer = (state = initState, action) => {
@@ -12,15 +15,28 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                token: action.token,
-                message: ''
+                accessToken: action.accessToken,
+                message: action.message,
+                userInfo: action.userInfo
             }
         case actionTypes.SIGN_OUT:
             return {
                 ...state,
                 isLoggedIn: false,
-                token: null,
-                message: ''
+                accessToken: null,
+                message: action.message
+            }
+        
+        case actionTypes.SIGN_IN_FAIL:
+            return {
+                ...state,
+                message: action.message
+            }
+        case actionTypes.SIGN_UP:
+            return {
+                ...state,
+                messageSignUp: action.message,
+                signUpSuccess: action.signUpSuccess
             }
     
         default:
