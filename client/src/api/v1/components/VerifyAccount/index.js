@@ -13,7 +13,6 @@ function VerifyAccount() {
 
     useEffect(async () => {
         const response = await apiVerifyAccount(pathnames[2]);
-        console.log(response)
         setMessage(response?.data?.message);
     }, [])
 

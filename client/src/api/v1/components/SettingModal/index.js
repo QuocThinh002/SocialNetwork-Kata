@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { useDispatch } from 'react-redux';
 
+import {signOut} from '../../store/actions/auth.action'
 import './settingModal.scss'
-import { signOut } from '../../store/actions/auth.action';
 
 
 function SettingModal(){
@@ -13,8 +13,8 @@ function SettingModal(){
     const dispatch = useDispatch();
 
 
-    const handleSignOut = () => {
-        dispatch(signOut());
+    const handleSignOut = async () => {
+        dispatch(signOut())
     }
 
     const handleToggleDarkMode = () => {

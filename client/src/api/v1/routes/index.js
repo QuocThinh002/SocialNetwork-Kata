@@ -1,11 +1,14 @@
 import SignUpSuccess from "../components/SignUpSuccess";
 import VerifyAccount from "../components/VerifyAccount";
+import ForgotPasswordSuccess from "../components/ForgotPasswordSuccess";
 import LayoutDefault from "../layout/LayoutDefault";
 import Feed from "../pages/Feed";
 import Login from "../pages/Login";
-import ForgetPasswordForm from "../pages/Login/ForgotPassword";
+import ForgetPassword from "../pages/ForgotPassword";
+import ResetPassword from '../pages/ResetPassword'
 import Personal from "../pages/Personal";
-import { path } from '../utils/constant'
+import { path } from '../utils/constant';
+
 
 
 
@@ -37,6 +40,14 @@ export const routes = [
     },
     {
         path: path.FORGOT_PASSWORD,
-        element: <ForgetPasswordForm />
+        element: <ForgetPassword />
+    },
+    {
+        path: path.FORGOT_PASSWORD_SUCCESS,
+        element: <ForgotPasswordSuccess />
+    },
+    {
+        path: path.RESET_PASSWORD,
+        element: <ResetPassword />
     }
 ]

@@ -29,6 +29,18 @@ export const apiSignIn = async (payload) => {
     }
 }
 
+export const apiSignOut = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/kata/signout`,
+        })
+        return response
+    } catch (error) {
+        
+    }
+}
+
 export const apiVerifyAccount = async (verificationToken) => {
     try {
         const response = await axiosConfig({
@@ -49,6 +61,19 @@ export const apiForgotPassword = async (payload) => {
             data: payload
         })
         return response
+    } catch (error) {
+        
+    }
+}
+
+export const apiResetPassword = async ({resetPwToken, password}) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/kata/reset-password/${resetPwToken}`,
+            data: {password}
+        })
+        return response;
     } catch (error) {
         
     }

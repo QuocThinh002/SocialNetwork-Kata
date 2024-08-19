@@ -23,3 +23,12 @@ Content-Type: application/json
     "email": "quickthink123@gmail.com",
     "password": "fghj6789"
 }
+
+
+### reset password
+POST {{url_dev}}/kata/reset-password/kasdjfk
+Content-Type: application/json
+
+{
+    "password": "abcd1234"
+}

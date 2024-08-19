@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import {apiSignIn, apiSignUp} from '../../services/auth.services'
+import {apiSignIn, apiSignOut, apiSignUp} from '../../services/auth.services'
 
 export const signUp = (payload) => async (dispatch) => {
     try {
@@ -54,6 +54,16 @@ export const signIn = (payload) => async (dispatch) => {
     }
 }
 
-export const signOut = () => ({
-    type: actionTypes.SIGN_OUT
-})
+export const signOut = () => async (dispatch) => {
+    try {
+        const response = await apiSignOut();
+        
+        if (response.data.status || true) {
+            dispatch({
+                type: actionTypes.SIGN_OUT
+            })
+        }
+    } catch (error) {
+        
+    }
+}
