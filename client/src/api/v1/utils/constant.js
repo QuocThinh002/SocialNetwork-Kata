@@ -10,3 +10,5 @@ export const path = {
     FORGOT_PASSWORD_SUCCESS: 'forgot-password-success',
     RESET_PASSWORD: 'reset-password/:reset-pw-token'
 }
+
+export const domain = 'api/v1';

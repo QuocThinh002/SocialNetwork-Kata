@@ -25,7 +25,7 @@ function SignUpSuccess() {
                 Để hoàn tất quá trình, vui lòng kiểm tra email của bạn và nhấp vào liên kết xác thực trong email đó.<br />
                 Nếu không tìm thấy email, hãy kiểm tra thư mục Spam hoặc Junk Mail.
             </h2>
-            <Link to={'/' + path.LOGIN} className='signup-success__link'>Login</Link>
+            <Link to='/login'>Login</Link>
         </div>
     </>)
 }

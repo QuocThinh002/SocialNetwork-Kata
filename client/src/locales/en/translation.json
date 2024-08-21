@@ -62,5 +62,21 @@
     "forgot_password": "Forgot Password?",
     "name": "Name",
     "already_account": "Already have an account?"
+  },
+  "personal": {
+    "cover_photo": "Cover Photo:",
+    "profile_picture": "Profile Picture:",
+    "name":  "Name",
+    "email": "Email",
+    "bio": "Bio",
+    "gender": "Gender",
+    "edit_profile": "Edit Profile",
+    "friends": "Friends",
+    "cancel": "Cancel",
+    "save_changes": "Save Changes" ,
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "remain_bio": "{{count}} characters remaining"
   }
 }

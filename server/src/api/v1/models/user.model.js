@@ -46,6 +46,11 @@ const userSchema = new Schema({
         enum: ['active', 'inactive', 'deleted'],
         default: 'inactive'
     },
+    language: {
+        type: String,
+        enum: ['en', 'vi'],
+        default: 'vi'
+    },
     verificationToken: String,
     refreshToken: String,
     passwordChangedAt: String,

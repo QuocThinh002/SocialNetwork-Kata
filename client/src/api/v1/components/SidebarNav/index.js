@@ -6,13 +6,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { useTranslation } from "react-i18next";
 
-import { path } from '../../utils/constant'
+
+import { path } from '../../utils/constant';
 import SettingModal from '../SettingModal';
 
 function SidebarNav() {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { isLoggedIn } = useSelector(state => state.authReducer);
+    const { isLoggedIn} = useSelector(state => state.authReducer);
+    const { user } = useSelector(state => state.userReducer);
     const [isSettingOpen, setIsSettingOpen] = useState(false);
     const modalRef = useRef(null);
 
@@ -26,6 +28,8 @@ function SidebarNav() {
         setIsSettingOpen(!isSettingOpen);
     }
 
+
+    
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -48,13 +52,13 @@ function SidebarNav() {
         <div className="sidebar-nav">
             <div>
                 <div className='sidebar-nav__avatar' onClick={() => navigate(`/${path.PERSONAL}`)}>
-                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEnuDpO2_EH3FK8D8r2g3pgpiPw7uuR5AlOg&s' alt='avatar' />
+                    <img src={user?.profilePicture || `${window.location.origin}/assets/image/sky.jpg`} alt='avatar' />
                 </div>
 
                 <div className='sidebar-nav__top'>
                     <div className='tooltip'>
                         <FaHouse className="sidebar-nav__icon" />
-                        <span className='tooltip__text'>{t("navbar.home", { name: 'ok' })}</span>
+                        <span className='tooltip__text'>{t("navbar.home")}</span>
                     </div>
                     <div className='tooltip' >
                         <FaUserGroup className="sidebar-nav__icon" />

@@ -1,6 +1,6 @@
 import axiosConfig from '../../../axiosConfig'
 
-const domain = '/api/v1';
+import {domain} from '../utils/constant'
 
 export const apiSignUp = async (payload) => {
     try {
@@ -23,6 +23,7 @@ export const apiSignIn = async (payload) => {
             url: `${domain}/kata/signin`,
             data: payload
         })
+        localStorage.setItem('accessToken', response.data.token);
         return response
     } catch (error) {
 
@@ -31,6 +32,7 @@ export const apiSignIn = async (payload) => {
 
 export const apiSignOut = async () => {
     try {
+        localStorage.removeItem('accessToken');
         const response = await axiosConfig({
             method: 'post',
             url: `${domain}/kata/signout`,

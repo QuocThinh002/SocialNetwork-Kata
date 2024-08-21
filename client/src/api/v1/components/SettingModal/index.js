@@ -1,17 +1,18 @@
 import { FaGlobe, FaArrowRightFromBracket, FaMoon } from 'react-icons/fa6';
 import { useState } from 'react';
 import { useTranslation } from "react-i18next";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {signOut} from '../../store/actions/auth.action'
 import './settingModal.scss'
+import { updateUser } from '../../store/actions/user.action';
 
 
 function SettingModal(){
     const { t, i18n } = useTranslation()
-    const [currentLanguage, setCurrentLanguage] = useState('vi')
+    const { user } = useSelector(state => state.userReducer);
+    const [currentLanguage, setCurrentLanguage] = useState(user?.language)
     const dispatch = useDispatch();
-
 
     const handleSignOut = async () => {
         dispatch(signOut())
@@ -21,13 +22,18 @@ function SettingModal(){
 
     }
 
+    const handleChangeLanguage = () => {
+        const newLang = currentLanguage === "en" ? "vi" : "en";
+        setCurrentLanguage(newLang)
+        i18n.changeLanguage(newLang)
+        dispatch(updateUser({ language: newLang }));
+        console.log('::language::',{language: newLang})
+    }
+
     return (<>
         <div className='setting-modal'>
             <button className='setting-modal__language'
-                onClick={() => {
-                    setCurrentLanguage(currentLanguage === "en" ? "vi" : "en")
-                    i18n.changeLanguage(currentLanguage === "en" ? "vi" : "en")
-                }}
+                onClick={handleChangeLanguage}
             >
                 <span className='setting-modal__item'>
                     <span className='setting-modal__icon'><FaGlobe className='setting-modal__icon' /></span>

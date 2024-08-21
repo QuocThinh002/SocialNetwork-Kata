@@ -21,8 +21,8 @@ function VerifyAccount() {
             <img className='logo' src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logoKata'/>
             <h2>
                 {message}
-                <Link to={'/' + path.LOGIN }>Login</Link>
             </h2> 
+            <Link to='/login'>Login</Link>
         </div>
     </>)
 }

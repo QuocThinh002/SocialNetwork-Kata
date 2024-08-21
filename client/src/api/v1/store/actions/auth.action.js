@@ -34,13 +34,12 @@ export const resetSignUpSuccess = () => ({
 export const signIn = (payload) => async (dispatch) => {
     try {
         const response = await apiSignIn(payload);
-        const { status, accessToken, message, user } = response.data;
+        const { status, token, message } = response.data;
         if (status) {
             dispatch({
                 type: actionTypes.SIGN_IN,
-                accessToken,
+                accessToken: token,
                 message,
-                userInfo: user
             })
         } else {
             dispatch({

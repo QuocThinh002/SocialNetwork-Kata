@@ -47,7 +47,7 @@ class AccessController {
                 })
             }
 
-            const verifyURL = `${req.protocol}://${req.get('host')}/verify-account/${verificationToken}`;
+            const verifyURL = `${process.env.CLIENT_URL}/verify-account/${verificationToken}`;
             const subject = 'Verify Account Kata';
             const html = `
                 <div style="background-color: #f5f5f5; padding: 20px;">
@@ -147,7 +147,7 @@ class AccessController {
                 code: 200,
                 status: true,
                 token: accessToken,
-                user: getInfoDataOmit({ fileds: ['role', 'password', 'refreshToken'], object: user.toObject() }),
+                user: getInfoData({ fileds: ["_id", "name", "email", "profilePicture", "coverPhoto", "bio", "gender", "friends", "blockUsers", "status", "notifications"], object: user.toObject() }),
             })
         } catch (error) {
 
@@ -200,7 +200,7 @@ class AccessController {
             user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
             await user.save();
 
-            const resetURL = `${req.protocol}://${req.get('host')}/reset-password/${passwordResetToken}`;
+            const resetURL = `${process.env.CLIENT_URL}/reset-password/${passwordResetToken}`;
 
             const subject = 'Forgot Password Kata';
             const html = `

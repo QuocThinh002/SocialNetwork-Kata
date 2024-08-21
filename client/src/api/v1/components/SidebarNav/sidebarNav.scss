@@ -23,7 +23,6 @@
         aspect-ratio: 1/1;
         cursor: pointer;
         margin: 22px auto 0 auto;
-        padding: 10px 0;
 
 
         img {
@@ -44,9 +43,9 @@
 
     &__icon {
         color: $four-text-color;
-        font-size: 28px;
         width: 60px;
-        padding: 10px 0;
+        height: 60px;
+        padding: 1.25rem;
     }
 }
 

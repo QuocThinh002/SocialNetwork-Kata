@@ -20,7 +20,7 @@ Content-Type: application/json
 # }
 
 {
-    "email": "quickthink123@gmail.com",
+    "email": "thinhb2106815@student.ctu.edu.vn",
     "password": "fghj6789"
 }
 
@@ -31,4 +31,13 @@ Content-Type: application/json
 
 {
     "password": "abcd1234"
+}
+
+### updateMe
+PATCH {{url_dev}}/user/updateMe
+Content-Type: application/json
+BearerToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmMyMjQ3MWM4NjdkNWM3MWNiZTZhZjYiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDA4NjkxOCwiZXhwIjoxNzI0MjU5NzE4fQ.w5XkqU85CyoE_Y0j52KeTjNcDRT9FCmDZPkgmXbY9l4
+
+{
+    "name": "Quoc Thinh"
 }

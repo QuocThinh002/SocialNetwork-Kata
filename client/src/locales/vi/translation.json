@@ -62,5 +62,21 @@
     "forgot_password": "Quên mật khẩu?",
     "name": "Tên",
     "already_account": "Bạn đã có tài khoản?"
+  },
+  "personal": {
+    "cover_photo": "Ảnh bìa:",
+    "profile_picture": "Ảnh đại diện:",
+    "name": "Tên:",
+    "email": "Email:",
+    "bio": "Tiểu sử:",
+    "gender": "Giới tính:",
+    "edit_profile": "Chỉnh sửa trang cá nhân",
+    "friends": "Bạn bè",
+    "cancel": "Hủy",
+    "save_changes": "Lưu thay đổi",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "remain_bio": "Còn {{count}} ký tự"
   }
 }

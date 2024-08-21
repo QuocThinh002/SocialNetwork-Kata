@@ -5,8 +5,7 @@ const initState = {
     accessToken: null,
     message: '',
     messageSignUp: '',
-    signUpSuccess: false,
-    userInfo: {}
+    signUpSuccess: false
 }
 
 const authReducer = (state = initState, action) => {
@@ -16,8 +15,7 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 isLoggedIn: true,
                 accessToken: action.accessToken,
-                message: action.message,
-                userInfo: action.userInfo
+                message: action.message
             }
         case actionTypes.SIGN_OUT:
             return {
