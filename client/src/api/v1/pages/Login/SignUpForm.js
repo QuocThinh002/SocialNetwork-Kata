@@ -6,6 +6,7 @@ import { FaTriangleExclamation } from 'react-icons/fa6'
 import {useNavigate} from 'react-router-dom'
 
 import { signUp } from '../../store/actions/auth.action';
+import { apiSignUp } from '../../services/auth.services';
 
 const SignUpForm = ({ toggleLogin }) => {
   const { register, formState: { errors }, handleSubmit } = useForm();
@@ -17,8 +18,10 @@ const SignUpForm = ({ toggleLogin }) => {
   const onSubmit = async (data) => {
     try {
       const { confirmPassword, ...payload } = data;
-      dispatch(signUp(payload))
-      navigate('/signup-success');
+      
+      const response = await apiSignUp(payload);
+      dispatch(signUp(response))
+      if (response.status) navigate('/signup-success');
     } catch (error) {
       console.error("Error during submission:", error);
       alert("Submission has failed.");
@@ -27,7 +30,7 @@ const SignUpForm = ({ toggleLogin }) => {
 
   return (<>
     <form onSubmit={handleSubmit(onSubmit)} className="form">
-      <div className='form--logo'>
+      <div className='form__logo'>
         <img src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logo' />
       </div>
 

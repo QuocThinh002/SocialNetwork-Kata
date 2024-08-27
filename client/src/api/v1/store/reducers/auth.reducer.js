@@ -4,8 +4,7 @@ const initState = {
     isLoggedIn: false,
     accessToken: null,
     message: '',
-    messageSignUp: '',
-    signUpSuccess: false
+    messageSignUp: ''
 }
 
 const authReducer = (state = initState, action) => {
@@ -33,8 +32,7 @@ const authReducer = (state = initState, action) => {
         case actionTypes.SIGN_UP:
             return {
                 ...state,
-                messageSignUp: action.message,
-                signUpSuccess: action.signUpSuccess
+                messageSignUp: action.message
             }
     
         default:

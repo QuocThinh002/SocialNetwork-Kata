@@ -11,17 +11,20 @@ function VerifyAccount() {
     const location = useLocation();
     const pathnames = location.pathname.split('/');
 
-    useEffect(async () => {
-        const response = await apiVerifyAccount(pathnames[2]);
-        setMessage(response?.data?.message);
+    useEffect(() => {
+        const func = async () => {
+            const response = await apiVerifyAccount(pathnames[2]);
+            setMessage(response?.data?.message);
+        }
+        func()
     }, [])
 
     return (<>
         <div className='verify-account'>
-            <img className='logo' src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logoKata'/>
+            <img className='logo' src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logoKata' />
             <h2>
                 {message}
-            </h2> 
+            </h2>
             <Link to='/login'>Login</Link>
         </div>
     </>)

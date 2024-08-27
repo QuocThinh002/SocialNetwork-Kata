@@ -30,7 +30,7 @@ const SignInForm = ({ toggleLogin }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
-      <div className='form--logo'>
+      <div className='form__logo'>
         <img src={`${window.location.origin}/assets/image/logoKata2.png`} alt='logo' />
       </div>
 

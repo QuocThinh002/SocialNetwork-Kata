@@ -40,7 +40,7 @@ function SidebarNav() {
     }, []);
 
     useEffect(() => {
-        if (!isLoggedIn) navigate(path.LOGIN)
+        if (!isLoggedIn) navigate('/login')
     }, [isLoggedIn])
 
 
@@ -56,15 +56,15 @@ function SidebarNav() {
                 </div>
 
                 <div className='sidebar-nav__top'>
-                    <div className='tooltip'>
+                    <div className='tooltip'  onClick={() => navigate(`/${path.FEED}`)}>
                         <FaHouse className="sidebar-nav__icon" />
                         <span className='tooltip__text'>{t("navbar.home")}</span>
                     </div>
-                    <div className='tooltip' >
+                    <div className='tooltip' onClick={() => navigate(`/${path.FRIENDS}`)}>
                         <FaUserGroup className="sidebar-nav__icon" />
                         <span className='tooltip__text'>{t("navbar.friends")}</span>
                     </div>
-                    <div className='tooltip'>
+                    <div className='tooltip'  onClick={() => navigate(`/${path.MESSAGES}`)}>
                         <FaMessage className="sidebar-nav__icon" />
                         <span className='tooltip__text'>{t("navbar.messages")}</span>
                     </div>

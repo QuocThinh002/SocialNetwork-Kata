@@ -15,7 +15,7 @@ router.patch('/updateMe',
     ]),
     UserController.updateMe
 );
-
+router.get('/getFriends', [verifyAccessToken], UserController.getFriends)
 
 
 

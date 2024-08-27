@@ -1,3 +1,4 @@
+const { constant } = require('lodash');
 const userModel = require('../models/user.model');
 const { getInfoData, getInfoDataOmit } = require('../utils');
 
@@ -22,6 +23,42 @@ class UserController {
                 message: user ? 'get info successfully':'Something went wrong!',
                 user: user ? getInfoDataOmit({ fileds: ["password", "role", "status", "verificationToken", "refreshToken", "passwordChangedAt", "passwordResetToken", "passwordResetExpires"], object: user }) : null
             })
+        } catch (error) {
+            
+        }
+    }
+
+    getFriends = async (req, res) => {
+        try {
+            console.log('[GET]::getFriends::');
+            const { userId } = req.user;
+
+            if (!userId) {
+                return res.status(200).json({
+                    status: false,
+                    message: 'No right'
+                })
+            }
+
+            const user = await userModel.findById(userId).lean();
+            if (!user) {
+                return res.status(404).json({
+                    status: false,
+                    message: 'User not found'
+                });
+            }
+            const friends = await Promise.all(
+                user.friends.map(async (item) => {
+                    const friend = await userModel.findById(item).lean().select('id name profilePicture');
+                    return friend;
+                })
+            );
+    
+            return res.status(200).json({
+                status: true,
+                message: 'Get friends successfully',
+                friends: friends
+            });
         } catch (error) {
             
         }

@@ -2,9 +2,23 @@
 
 .layout-default {
     display: flex;
+    margin-left: 60px;
 }
 
 .main {
     flex: 1;
     height: 100vh;
+    background-color: var(--background-color);
+    color: var(--one-text-color);
+}
+
+.btn {
+    background-color: var(--seven-color);
+    &:hover {
+        background-color: var(--seven-hover-color);
+    }
+}
+
+.loading {
+    background-color: red;
 }

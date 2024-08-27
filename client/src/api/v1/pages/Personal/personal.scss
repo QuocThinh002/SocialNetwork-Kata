@@ -1,8 +1,5 @@
 @import '../../utils//variables';
 
-.container {
-    margin-left: 60px;
-}
 
 .personal {
     width: 950px;
@@ -33,6 +30,7 @@
 
 
     &__avatar {
+        margin-top: -40px;
         width: 170px;
         aspect-ratio: 1/1;
         border-radius: 50%;
@@ -45,11 +43,11 @@
         }
     }
 
-    &__box-right {
+    &__box-center {
         display: flex;
         flex-direction: column;
-        flex: 1;
         justify-content: space-around;
+        width: 350px;
 
         &__name {
             font-size: 2.5rem;
@@ -74,20 +72,29 @@
                 aspect-ratio: 1/1;
                 border-radius: 50%;
                 object-fit: cover;
-                border: 2px solid $two-color;
             }
         }
+
+    }
+
+    &__box-right {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: end;
+        &__btn {
+            background-color: var(--seven-color);
+        }
+    
+        &__text {
+            margin-left: 6px;
+        }
+    }
+
+    &__box-bio {
+        padding: 10px;
+        text-align: center;
+        font-size: 1.25rem;
     }
 }
 
-.edit-personal {
-    margin: auto;
-
-    &__btn {
-        background-color: $one-color;
-    }
-
-    &__text {
-        margin-left: 6px;
-    }
-}

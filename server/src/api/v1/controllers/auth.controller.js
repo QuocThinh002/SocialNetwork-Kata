@@ -89,7 +89,7 @@ class AccessController {
                 return res.status(200).json({
                     code: 500,
                     status: false,
-                    message: 'Something went wrong! Please try again...'
+                    message: 'Authentication failed! Please try again...'
                 })
             }
             user.status = 'active'

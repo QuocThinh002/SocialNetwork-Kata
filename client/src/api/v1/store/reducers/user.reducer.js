@@ -2,7 +2,7 @@ import actionTypes from "../actions/actionTypes";
 
 const initState = {
     user: null,
-    language: 'vi'
+    language: 'vi',
 }
 
 const userReducer = (state = initState, action) => {
@@ -14,6 +14,11 @@ const userReducer = (state = initState, action) => {
                     ...state,
                     user: action.user,
                     language: action.language
+                }
+            case actionTypes:
+                return {
+                    ...state,
+                    friends: action.friends
                 }
 
 

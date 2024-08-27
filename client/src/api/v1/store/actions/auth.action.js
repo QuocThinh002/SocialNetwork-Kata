@@ -1,35 +1,21 @@
 import actionTypes from "./actionTypes";
 import {apiSignIn, apiSignOut, apiSignUp} from '../../services/auth.services'
 
-export const signUp = (payload) => async (dispatch) => {
+export const signUp = (response) => async (dispatch) => {
     try {
-        const response = await apiSignUp(payload);
-        const { status, message } = response.data;
+        const { status, message } = response;
         if (!status) {
             dispatch({
                 type: actionTypes.SIGN_UP,
-                message,
-                signUpSuccess: false
+                message
             })
-        } else {
-            // dang ky thanh cong thi lam gi
-            // sua lai nhe, nay khong phai dau
-            dispatch({
-                type: actionTypes.SIGN_UP,
-                signUpSuccess: true,
-            })
-
         }
+        return status
 
     } catch (error) {
         
     }
 }
-
-export const resetSignUpSuccess = () => ({
-    type: actionTypes.SIGN_UP,
-    signUpSuccess: false,
-})
 
 export const signIn = (payload) => async (dispatch) => {
     try {

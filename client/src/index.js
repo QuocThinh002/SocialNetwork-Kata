@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import reduxStore from './reduxConfig'
 
+import { ThemeProvider } from './themeContext';
+
 
 const { store, persistor } = reduxStore();
 
@@ -15,7 +17,9 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>

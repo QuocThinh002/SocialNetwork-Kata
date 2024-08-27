@@ -30,9 +30,11 @@
   },
   "messages": {
     "new_message": "Tin nhắn mới",
-    "search_placeholder": "Tìm kiếm bạn bè",
+    "search_placeholder": "Tìm kiếm...",
     "no_messages": "Không có tin nhắn",
-    "send": "Gửi"
+    "send": "Gửi",
+    "add_friend": "Thêm bạn",
+    "create_group_chat": "Tạo nhóm chat"
   },
   "settings": {
     "account": "Cài đặt tài khoản",
@@ -41,7 +43,8 @@
     "help": "Trợ giúp & Hỗ trợ",
     "delete_account": "Xóa tài khoản",
     "logout": "Đăng xuất",
-    "dark_mode": "Chế độ tối"
+    "dark_mode": "Chế độ tối",
+    "light_mode": "Chế độ sáng"
   },
   "post": {
     "edit_post": "Chỉnh sửa bài viết",
@@ -77,6 +80,9 @@
     "male": "Nam",
     "female": "Nữ",
     "other": "Khác",
-    "remain_bio": "Còn {{count}} ký tự"
+    "remain_bio": "Còn {{count}} ký tự",
+    "updating_profile": "Đang cập nhật trang cá nhân",
+    "update_profile_success": "Cập nhật trang cá nhân thành công",
+    "udpate_profile_error": "Cập nhật trang cá nhân thất bại"
   }
 }

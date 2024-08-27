@@ -1,0 +1,19 @@
+
+@url_dev = http://localhost:3052/api/v1
+
+### create users random
+POST {{url_dev}}/create/users-random
+
+
+### create one user
+POST {{url_dev}}/create/user 
+Content-Type: application/json
+
+{
+    "name": "Quick Think",
+    "email": "thinhb2106815@student.ctu.edu.vn",
+    "password": "fghj6789"
+}
+
+### friends random
+POST {{url_dev}}/create/friends-random

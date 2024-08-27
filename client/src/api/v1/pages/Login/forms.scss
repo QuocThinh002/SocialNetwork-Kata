@@ -2,7 +2,7 @@
 
 
 .form {
-    background-color: $two-color;
+    background-color: var(--two-color);
     width: 400px;
     // border: 1px solid #000;
     padding: 30px;
@@ -10,7 +10,7 @@
     border-radius: 0.275rem;
     margin-bottom: 25px;
 
-    &--logo {
+    &__logo {
         margin-bottom: 10px;
         height: 90px;
         text-align: center;
@@ -26,7 +26,7 @@
     &__group {
         margin-bottom: 1.75rem;
         width: 100%;
-        background-color: $two-color;
+        background-color: var(--two-color);
         display: flex;
         flex-direction: column;
         gap: 3px;
@@ -36,24 +36,24 @@
         flex: 1;
         padding: 10px;
         border: none;
-        background-color: $three-color;
+        background-color: var(--three-color);
         border-radius: 0.375rem;
         font-size: 1.5rem;
-        outline: 1px solid $three-color;
+        outline: 1px solid var(--three-color);
 
         &:focus {
-            outline-color: $primary-color;
+            outline-color: var(--primary-color);
         }
     }
 
     &__error {
-        color: $three-text-color;
+        color: var(--three-text-color);
 
         &__server {
-            color: $three-text-color;
+            color: var(--three-text-color);
             margin-bottom: 1.25rem;
             padding: 10px;
-            background-color: $five-color;
+            background-color: var(--five-color);
             border-radius: 0.375rem;
             font-size: 1.5rem;
         }
@@ -63,15 +63,15 @@
         width: 100%;
         padding: 8px;
         border: none;
-        background-color: $primary-color;
-        color: $two-color;
+        background-color: var(--primary-color);
+        color: var(--two-color);
         border-radius: 0.375rem;
         font-size: 1.5rem;
         margin-bottom: 10px;
         font-weight: 600;
 
         &:hover {
-            background-color: $one-color;
+            background-color: var(--one-color);
         }
     }
 
@@ -82,22 +82,22 @@
         cursor: pointer;
 
         span:hover {
-            color: $one-color;
+            color: var(--one-color);
         }
     }
 
     &__signup {
         text-align: center;
         font-size: 1.2rem;
-        color: $two-text-color;
+        color: var(--two-text-color);
 
         span span {
             margin-left: 6px;
-            color: $one-text-color;
+            color: var(--one-text-color);
             cursor: pointer;
 
             &:hover {
-                color: $one-color;
+                color: var(--one-color);
             }
         }
     }

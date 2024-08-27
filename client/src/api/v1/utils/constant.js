@@ -3,6 +3,8 @@ export const path = {
     HOME: '/*',
     LOGIN: 'login',
     FEED: 'feed',
+    MESSAGES: 'messages',
+    FRIENDS: 'friends',
     VERIFY_ACCOUNT: 'verify-account/:verifyAccountToken',
     SIGNUP_SUCCESS: 'signup-success',
     PERSONAL: 'personal',

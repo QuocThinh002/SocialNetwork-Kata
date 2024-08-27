@@ -8,6 +8,8 @@ import ForgetPassword from "../pages/ForgotPassword";
 import ResetPassword from '../pages/ResetPassword'
 import Personal from "../pages/Personal";
 import { path } from '../utils/constant';
+import Messages from "../pages/Messages";
+import Friends from "../pages/Friends";
 
 
 
@@ -24,6 +26,14 @@ export const routes = [
             {
                 path: path.PERSONAL,
                 element: <Personal />
+            },
+            {
+                path: path.MESSAGES,
+                element: <Messages />
+            },
+            {
+                path: path.FRIENDS,
+                element: <Friends />
             }
         ]
     }, {

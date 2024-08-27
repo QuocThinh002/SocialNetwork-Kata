@@ -25,8 +25,8 @@ const userSchema = new Schema({
     birthday: Date,
     gender: {
         type: String,
-        enum: ['Male', 'Female', 'Other'],
-        default: 'Other'
+        enum: ['male', 'female', 'other'],
+        default: 'other'
     },
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     blockUsers: [{type: Schema.Types.ObjectId, ref: 'User'}],
@@ -50,6 +50,11 @@ const userSchema = new Schema({
         type: String,
         enum: ['en', 'vi'],
         default: 'vi'
+    },
+    theme: {
+        type: String,
+        enum: ['light', 'dark'],
+        default: 'light'
     },
     verificationToken: String,
     refreshToken: String,

@@ -6,7 +6,7 @@
 
 .setting-modal {
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1), -1px -1px 4px rgba(0, 0, 0, 0.1);
-    background-color: $two-color;
+    background-color: var(--two-color);
     padding: 10px;
     border-radius: 4px;
     width: 180px;
@@ -28,21 +28,21 @@
         padding: 10px;
         border-radius: 6px;
         &:hover {
-            background-color: $three-color;
+            background-color: var(--three-color);
         }
 
         &__text {
             white-space: nowrap;
             font-size: 1.5rem;
             font-weight: 500;
-            // margin-left: 10px;
+            color: var(--one-text-color);
             flex: 1;
             text-align: start;
         }
     }
 
     &__icon {
-        color: $one-text-color;
+        color: var(--one-text-color);
         font-size: 28px;
         display: flex;
     }

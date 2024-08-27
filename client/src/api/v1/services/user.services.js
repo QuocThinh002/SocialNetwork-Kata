@@ -13,6 +13,18 @@ export const apiGetMe = async () => {
     }
 }
 
+export const apiGetFriends = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `${domain}/user/getFriends`,
+        })
+        return response
+    } catch (error) {
+
+    }
+}
+
 export const apiUpdateUser = async (payload) => {
     try {
         const response = await axiosConfig({

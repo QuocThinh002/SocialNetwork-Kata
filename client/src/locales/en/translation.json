@@ -30,9 +30,11 @@
   },
   "messages": {
     "new_message": "New Message",
-    "search_placeholder": "Search for friends",
+    "search_placeholder": "Search...",
     "no_messages": "No messages",
-    "send": "Send"
+    "send": "Send",
+    "add_friend": "Add friend",
+    "create_group_chat": "Create group chat"
   },
   "settings": {
     "account": "Account Settings",
@@ -41,7 +43,8 @@
     "help": "Help & Support",
     "delete_account": "Delete Account",
     "logout": "Logout",
-    "dark_mode": "Dark mode"
+    "dark_mode": "Dark mode",
+    "light_mode": "Light mode"
   },
   "post": {
     "edit_post": "Edit Post",
@@ -77,6 +80,9 @@
     "male": "Male",
     "female": "Female",
     "other": "Other",
-    "remain_bio": "{{count}} characters remaining"
+    "remain_bio": "{{count}} characters remaining",
+    "updating_profile": "Updating profile",
+    "update_profile_success": "Updating profile successfully",
+    "update_profile_error": "Update profile fail"
   }
 }
