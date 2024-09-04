@@ -3,12 +3,13 @@
 // Sử dụng CSS Variables trực tiếp
 :root {
     --background-color: #fff;
+    --background-hover-color: #e0f2fe;
 
     --primary-color: #3b82f6;
     --secondary-color: #e2e8f0;
     --one-color: #2563eb;
     --two-color: #fff;
-    --three-color: #e8f0fe;
+    --three-color: #f0f4fc;
     --three-hover-color: #c9ddff;
     --four-color: #1d4ed8;
     --five-color: #fef2f2;
@@ -16,6 +17,15 @@
     --six-hover-color: #be123c;
     --seven-color: #1d4ed8;
     --seven-hover-color: #1e40af;
+    --eight-color: #a3a3a3;
+    --eight-hover-color: #525252;
+    --nine-color: #2563eb;
+    --nine-hover-color: #1e40af;
+    --ten-color: #e5e7eb;
+
+    --outgoing-color: #e1ecff;
+    --incoming-color: #fff;
+    --background-conv-color: #f6f6f6;
   
     --one-text-color: #000;
     --two-text-color: #94a3b8;
@@ -25,7 +35,8 @@
   
   // Ghi đè trong dark mode
   [data-theme='dark'] {
-    --background-color: #0a0a0a;
+    --background-color: #18181b;
+    --background-hover-color: #404040;
     
     --primary-color: #111827;
     --secondary-color: #27272a;
@@ -37,6 +48,15 @@
     --five-color: #f87171;
     --seven-color: #525252;
     --seven-hover-color: #737373;
+    --eight-color: #404040;
+    --eight-hover-color: #525252;
+    --nine-color: #2563eb;
+    --nine-hover-color: #1e40af;
+    --ten-color: #404040;
+    
+    --outgoing-color: #525252;
+    --incoming-color: #404040;
+    --background-conv-color: #171717;
   
     --one-text-color: #fff;
     --two-text-color: #e5e7eb;

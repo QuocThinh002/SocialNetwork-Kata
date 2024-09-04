@@ -1,6 +1,376 @@
-
 .chat-view {
     flex: 1;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    font-style: normal;
+    color: var(--one-text-color);
+    background-color: var(--background-conv-color);
+
+    &__head {
+        height: 64px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    &__main {
+
+        height: calc(100vh - 64px - 70px);
+        overflow-y: auto;
+        /* Thay đổi từ scroll thành auto để cuộn khi cần */
+        // scroll-behavior: smooth; /* Tạo hiệu ứng cuộn mượt mà */
+        padding: 8px;
+
+        /* Ẩn thanh cuộn trong Firefox */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        /* Ẩn thanh cuộn trong IE và Edge cũ */
+
+        &::-webkit-scrollbar {
+            /* Ẩn thanh cuộn trong trình duyệt WebKit (Chrome, Safari, Edge) */
+            display: none;
+            /* Thay vì width: 0; sử dụng display: none; */
+        }
+
+    }
+
+    &__foot {
+        padding: 8px;
+        border-top: 1px solid #ccc;
+
+        &:focus-within {
+            border-top-color: var(--one-color);
+        }
+
+
+
+        &__form-msg {
+            display: flex;
+            gap: 8px;
+
+
+            input {
+                flex: 1;
+                padding: 2px 6px;
+                border: none;
+                font-size: 1.2rem;
+                outline: none;
+                background-color: inherit;
+                color: var(--one-text-color)
+            }
+        }
+
+        &__emoji-box {
+            position: relative;
+            height: 28px;
+            width: 28px;
+
+            &__icon {
+                width: 100%;
+                height: 100%;
+                font-size: 1.75rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: inherit;
+                border: none;
+                color: var(--one-text-color);
+            }
+
+            &__emoji {
+                position: absolute;
+                right: 0;
+                bottom: 100%;
+            }
+        }
+
+        &__send {
+            color: var(--nine-color);
+            background-color: inherit;
+            border: none;
+            font-size: 1.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &__incoming {
+        .content-msg {
+            background: var(--incoming-color);
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            width: fit-content;
+            min-width: 60px;
+            margin-bottom: 0.3rem;
+            margin-left: 48px;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+        .box-msg {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+
+            &__sender-name {
+                background-color: #cfc7f7;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+        }
+
+        .content-img {
+            display: flex;
+            flex-wrap: wrap;
+            width: 60%;
+            gap: 4px;
+            margin-left: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            img {
+                aspect-ratio: 16/9;
+                object-fit: cover;
+            }
+        }
+
+        .content-img-one {
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .content-img-even {
+
+            img {
+                width: calc(50% - 2px);
+            }
+        }
+
+        .content-img-odd {
+
+            img {
+                width: calc(50% - 2px);
+
+                &:last-child {
+                    width: 100%;
+                    aspect-ratio: 21/9;
+                }
+            }
+        }
+    }
+
+    &__outgoing {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-bottom: 4px;
+
+        .content-msg {
+            padding: .5rem 1rem;
+            background: var(--outgoing-color);
+            border-radius: 8px;
+            min-width: 60px;
+            width: fit-content;
+            box-shadow: 0 1px 1px #ccc;
+        }
+
+        .content-img {
+            display: flex;
+            flex-wrap: wrap;
+            width: 60%;
+            gap: 4px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            img {
+                aspect-ratio: 16/9;
+                object-fit: cover;
+            }
+        }
+
+        .content-img-one {
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .content-img-even {
+
+            img {
+                width: calc(50% - 2px);
+            }
+        }
+
+        .content-img-odd {
+
+            img {
+                width: calc(50% - 2px);
+
+                &:last-child {
+                    width: 100%;
+                    aspect-ratio: 21/9;
+                }
+            }
+        }
+
+
+    }
+
+
+
+    &__profile-picture {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
 }
+
+#upload-images {
+    display: none;
+}
+
+.attach-file {
+    font-size: 1.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-images {
+    height: 100px;
+    width: 100%;
+    border: 2px solid var(--four-color);
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    background-color: var(--background-color);
+    position: relative;
+
+    &__close {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        height: 24px;
+        width: 24px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: #dc2626;
+        z-index: 1;
+
+        &:hover {
+            background-color: #dc2626;
+            color: #fff;
+        }
+    }
+
+    &__item {
+        height: 100%;
+        width: calc(100% / 6 - 8px - 4px);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        &__close {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: #000;
+            border: 1px solid #ccc;
+
+            &:hover {
+                color: #dc2626;
+            }
+        }
+    }
+}
+
+/* list-typing  */
+.list-typing {
+    &__box {
+        position: relative;
+
+        &__dots {
+            position: relative;
+            height: 20px;
+            width: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 45px;
+            margin-top: 2px;
+
+            span {
+                animation: blink 1.5s infinite;
+                height: 5px;
+                width: 5px;
+                background: var(--one-color);
+                border-radius: 50%;
+                display: inline-block;
+                margin: 0 3px;
+            }
+
+            span:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            span:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+        }
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.1;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
+
+/* end list-typing */

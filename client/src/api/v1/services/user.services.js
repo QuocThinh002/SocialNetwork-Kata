@@ -25,6 +25,18 @@ export const apiGetFriends = async () => {
     }
 }
 
+export const apiGetUser = async (userId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `${domain}/user/getUser/${userId}`,
+        })
+        return response
+    } catch (error) {
+
+    }
+}
+
 export const apiUpdateUser = async (payload) => {
     try {
         const response = await axiosConfig({

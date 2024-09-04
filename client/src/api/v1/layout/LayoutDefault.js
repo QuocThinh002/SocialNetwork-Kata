@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getMe, getFriends } from '../store/actions/user.action';
+import { signOutTokenExpired } from '../store/actions/auth.action';
 import { useTranslation } from "react-i18next";
 
 
@@ -19,19 +20,21 @@ function LayoutDefault() {
   const { language, user } = useSelector(state => state.userReducer);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (!isLoggedIn) navigate('/login')
-  }, isLoggedIn)
-
 
   useEffect(() => {
     const func = async () => {
-      await dispatch(getMe());
-      setIsLoading(false)
-      await dispatch(getFriends());
-    }
-    func()
-  }, [])
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        await dispatch(signOutTokenExpired());
+        navigate('/login'); // Điều hướng đến trang đăng nhập nếu token không tồn tại
+      } else {
+        await dispatch(getMe());
+        setIsLoading(false);
+        await dispatch(getFriends());
+      }
+    };
+    func();
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     console.log('user::', user)
@@ -40,6 +43,7 @@ function LayoutDefault() {
     i18n.changeLanguage(language)
     if (user?.theme) localStorage.setItem('theme', user?.theme);
   }, [language])
+
 
   return (
     <>
@@ -51,7 +55,7 @@ function LayoutDefault() {
         </> : <>
           <SidebarNav />
           <main className="main">
-              <Outlet />
+            <Outlet />
           </main>
         </>}
 

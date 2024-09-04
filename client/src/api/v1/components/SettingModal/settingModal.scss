@@ -5,12 +5,10 @@
 
 
 .setting-modal {
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1), -1px -1px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #cccccc80;
     background-color: var(--two-color);
     padding: 10px;
     border-radius: 4px;
-    width: 180px;
-    // background-color: green;
     display: flex;
     flex-direction: column;
 

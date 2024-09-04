@@ -102,6 +102,38 @@ class UserController {
 
         }
     }
+
+    getUser = async (req, res) => {
+        try {
+            console.log('[GET]::getUser::');
+            const { userId } = req.params;
+
+            if (!userId) {
+                return res.status(200).json({
+                    status: false,
+                    message: 'No right'
+                })
+            }
+
+            const user = await userModel.findById(userId).lean();
+            if (!user) {
+                return res.status(404).json({
+                    status: false,
+                    message: 'User not found'
+                });
+            }
+    
+            return res.status(200).json({
+                status: true,
+                message: 'Get friends successfully',
+                user: user ? getInfoData({ fileds: ['name', 'profilePricture', 'coverPhoto', 'bio', 'gender'], object: user }) : null
+            });
+        } catch (error) {
+            
+        }
+    }
+
+    
 }
 
 module.exports = new UserController();

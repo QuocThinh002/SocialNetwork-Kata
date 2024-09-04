@@ -43,11 +43,11 @@ function ModalEditPersonal(props) {
 
     const toastId = useRef(null);
 
-    const notify = () => toastId.current = toast.loading(t("personal.updating_profile"), { autoClose: false, transition: Slide, });
+    const notify = () => toastId.current = toast.loading(t("profile.updating_profile"), { autoClose: false, transition: Slide, });
 
     const updateToast = () => {
         toast.dismiss(toastId.current)
-        toast.success(t("personal.update_profile_success"), {
+        toast.success(t("profile.update_profile_success"), {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: true,
@@ -62,7 +62,7 @@ function ModalEditPersonal(props) {
 
     const updateErrorToast = () => {
         toast.dismiss(toastId.current)
-        toast.error(t("personal.update_profile_error"), {
+        toast.error(t("profile.update_profile_error"), {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: true,
@@ -157,11 +157,11 @@ function ModalEditPersonal(props) {
                                 <FaXmark />
                             </button>
 
-                            <h2 className='modal__title'>{t("personal.edit_profile")}</h2>
+                            <h2 className='modal__title'>{t("profile.edit_profile")}</h2>
 
                             <form onSubmit={handleSubmit(onSubmit)} className="form-person">
                                 <div className='form-person__item form-person__profile-picture'>
-                                    <label htmlFor="profilePicture">{t("personal.profile_picture")}</label>
+                                    <label htmlFor="profilePicture">{t("profile.profile_picture")}</label>
                                     <label htmlFor="profilePicture" className='form-person__profile-picture__image'>
                                         <img src={profilePictureUrl || user?.profilePicture || `${window.location.origin}/assets/image/sky.jpg`} alt='profile-picture' />
                                         <span className='form-person__profile-picture__icon'><FaCameraRotate /></span>
@@ -175,7 +175,7 @@ function ModalEditPersonal(props) {
                                 </div>
 
                                 <div className='form-person__item'>
-                                    <label htmlFor="coverPhoto">{t("personal.cover_photo")}</label>
+                                    <label htmlFor="coverPhoto">{t("profile.cover_photo")}</label>
                                     <label htmlFor="coverPhoto" className='form-person__cover-photo__image'>
                                         <img src={coverPhotoUrl || user?.coverPhoto || `${window.location.origin}/assets/image/sky.jpg`} alt='cover-photo' />
                                         <span className='form-person__cover-photo__icon'><FaCameraRotate /></span>
@@ -186,44 +186,44 @@ function ModalEditPersonal(props) {
                                 </div>
 
                                 <div className='form-person__item'>
-                                    <label htmlFor="name">{t("personal.name")}</label>
+                                    <label htmlFor="name">{t("profile.name")}</label>
                                     <input {...register('name')} type="text" id="name" />
                                     {/* {errors.name && <span>{errors.name.message}</span>} */}
                                 </div>
 
                                 <div className='form-person__item'>
-                                    <label htmlFor="email">{t("personal.email")}</label>
+                                    <label htmlFor="email">{t("profile.email")}</label>
                                     <input {...register('email')} type="email" id="email" />
                                     {/* {errors.email && <span>{errors.email.message}</span>} */}
                                 </div>
 
                                 <div className='form-person__item'>
-                                    <label htmlFor="bio">{t("personal.bio")}</label>
+                                    <label htmlFor="bio">{t("profile.bio")}</label>
                                     <textarea
                                         {...register('bio', { maxLength: maxBio })}
                                         rows="3"
                                         id="bio"
                                         onChange={handleChangeBio}
                                     />
-                                    <p className='form-person__count-bio'>{t("personal.remain_bio", { count: (maxBio - countBio) })}</p>
+                                    <p className='form-person__count-bio'>{t("profile.remain_bio", { count: (maxBio - countBio) })}</p>
                                     {/* {errors.bio && <span>{errors.bio.message}</span>} */}
                                 </div>
 
                                 <div className='form-person__item'>
                                     <div className='form-person__gender'>
-                                        <label htmlFor="gender">{t("personal.gender")}</label>
+                                        <label htmlFor="gender">{t("profile.gender")}</label>
                                         <select {...register('gender')}>
-                                            <option value="male">{t("personal.male")}</option>
-                                            <option value="female">{t("personal.female")}</option>
-                                            <option value="other">{t("personal.other")}</option>
+                                            <option value="male">{t("profile.male")}</option>
+                                            <option value="female">{t("profile.female")}</option>
+                                            <option value="other">{t("profile.other")}</option>
                                         </select>
                                     </div>
                                     {/* {errors.gender && <span>{errors.gender.message}</span>} */}
                                 </div>
 
                                 <div className='form-person__submit'>
-                                    <span onClick={() => setIsOpenModal(false)} className='btn btn__cancel'>{t("personal.cancel")}</span>
-                                    <button type="submit" className='btn btn__submit'>{t("personal.save_changes")}</button>
+                                    <span onClick={() => setIsOpenModal(false)} className='btn btn__cancel'>{t("profile.cancel")}</span>
+                                    <button type="submit" className='btn btn__submit'>{t("profile.save_changes")}</button>
                                 </div>
                             </form>
                         </div>

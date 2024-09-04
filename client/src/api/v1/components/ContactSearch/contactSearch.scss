@@ -1,0 +1,82 @@
+@import '../../utils/variables';
+
+.contact-search {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    color: var(--one-text-color);
+
+    &__group {
+        display: flex;
+        align-items: center;
+        background-color: var(--three-color);
+        border-radius: 8px;
+        padding-right: 8px;
+        flex: 1;
+
+
+        span {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            height: 40px;
+            border: none;
+            outline: none;
+            font-size: 1.2rem;
+            padding: 0;
+        }
+    }
+
+    .tooltip {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        
+        background-color: inherit;
+        margin-left: 8px;
+        color: var(--one-text-color);
+        border-radius: 8px;
+
+        &__text {
+            visibility: hidden;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: -50%;
+            left: 80%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            font-size: 1rem;
+        }
+
+        &:hover {
+            background-color: var(--three-color);
+        }
+
+        &:hover> {
+            .tooltip__text {
+                background-color: black;
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -21,7 +21,23 @@
     "about": "Giới thiệu",
     "edit_profile": "Chỉnh sửa hồ sơ",
     "no_friends": "Không có bạn bè nào để hiển thị.",
-    "no_photos": "Không có ảnh nào để hiển thị."
+    "no_photos": "Không có ảnh nào để hiển thị.",
+    "cover_photo": "Ảnh bìa:",
+    "profile_picture": "Ảnh đại diện:",
+    "name": "Tên:",
+    "email": "Email:",
+    "bio": "Tiểu sử:",
+    "gender": "Giới tính:",
+    "cancel": "Hủy",
+    "save_changes": "Lưu thay đổi",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "remain_bio": "Còn {{count}} ký tự",
+    "updating_profile": "Đang cập nhật trang cá nhân",
+    "update_profile_success": "Cập nhật trang cá nhân thành công",
+    "udpate_profile_error": "Cập nhật trang cá nhân thất bại",
+    "message": "Nhắn tin"
   },
   "notifications": {
     "new": "Mới",
@@ -66,23 +82,9 @@
     "name": "Tên",
     "already_account": "Bạn đã có tài khoản?"
   },
-  "personal": {
-    "cover_photo": "Ảnh bìa:",
-    "profile_picture": "Ảnh đại diện:",
-    "name": "Tên:",
-    "email": "Email:",
-    "bio": "Tiểu sử:",
-    "gender": "Giới tính:",
-    "edit_profile": "Chỉnh sửa trang cá nhân",
-    "friends": "Bạn bè",
-    "cancel": "Hủy",
-    "save_changes": "Lưu thay đổi",
-    "male": "Nam",
-    "female": "Nữ",
-    "other": "Khác",
-    "remain_bio": "Còn {{count}} ký tự",
-    "updating_profile": "Đang cập nhật trang cá nhân",
-    "update_profile_success": "Cập nhật trang cá nhân thành công",
-    "udpate_profile_error": "Cập nhật trang cá nhân thất bại"
+  "friends": {
+    "none-profile": "Chọn tên của mọi người để xem trước hồ sơ của họ.",
+    "friends_list": "Danh sách bạn bè",
+    "friends": "Bạn bè"
   }
 }

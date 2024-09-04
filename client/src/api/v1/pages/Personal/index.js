@@ -33,7 +33,7 @@ function Personal() {
                         </div>
                         <div className='personal__box-center'>
                             <h2 className='personal__box-center__name'>{user?.name}</h2>
-                            <span className='personal__box-center__friends'>{user?.friends?.length} {t("personal.friends")}</span>
+                            <span className='personal__box-center__friends'>{user?.friends?.length} {t("profile.friends")}</span>
                             <div className='personal__box-center__friends-img'>
                                 <img src={`${window.location.origin}/assets/image/sky.jpg`} alt='friend' />
                                 <img src={`${window.location.origin}/assets/image/sky.jpg`} alt='friend' />
@@ -45,7 +45,7 @@ function Personal() {
                             </div>
                         </div>
                         <div className='personal__box-right'>
-                            <button onClick={handleOpenModalEdit} className='btn personal__box-right__btn'><FaPen /><span className='personal__box-right__text'>{t("personal.edit_profile")}</span></button>
+                            <button onClick={handleOpenModalEdit} className='btn personal__box-right__btn'><FaPen /><span className='personal__box-right__text'>{t("profile.edit_profile")}</span></button>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,23 @@
     "about": "About",
     "edit_profile": "Edit Profile",
     "no_friends": "No friends to show.",
-    "no_photos": "No photos to show."
+    "no_photos": "No photos to show.",
+    "cover_photo": "Cover Photo:",
+    "profile_picture": "Profile Picture:",
+    "name":  "Name",
+    "email": "Email",
+    "bio": "Bio",
+    "gender": "Gender",
+    "cancel": "Cancel",
+    "save_changes": "Save Changes" ,
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "remain_bio": "{{count}} characters remaining",
+    "updating_profile": "Updating profile",
+    "update_profile_success": "Updating profile successfully",
+    "update_profile_error": "Update profile fail",
+    "message": "Message"
   },
   "notifications": {
     "new": "New",
@@ -66,23 +82,9 @@
     "name": "Name",
     "already_account": "Already have an account?"
   },
-  "personal": {
-    "cover_photo": "Cover Photo:",
-    "profile_picture": "Profile Picture:",
-    "name":  "Name",
-    "email": "Email",
-    "bio": "Bio",
-    "gender": "Gender",
-    "edit_profile": "Edit Profile",
-    "friends": "Friends",
-    "cancel": "Cancel",
-    "save_changes": "Save Changes" ,
-    "male": "Male",
-    "female": "Female",
-    "other": "Other",
-    "remain_bio": "{{count}} characters remaining",
-    "updating_profile": "Updating profile",
-    "update_profile_success": "Updating profile successfully",
-    "update_profile_error": "Update profile fail"
+  "friends": {
+    "none-profile": "Select people's names to preview their profile.",
+    "friends_list": "Friends list",
+    "friends": "Friends"
   }
 }

@@ -5,6 +5,7 @@ export const path = {
     FEED: 'feed',
     MESSAGES: 'messages',
     FRIENDS: 'friends',
+    USER: 'user',
     VERIFY_ACCOUNT: 'verify-account/:verifyAccountToken',
     SIGNUP_SUCCESS: 'signup-success',
     PERSONAL: 'personal',

@@ -17,7 +17,7 @@ const SignInForm = ({ toggleLogin }) => {
   
   useEffect(() => {
     if (isLoggedIn) navigate('/')
-  }, [isLoggedIn, navigate])
+  }, [isLoggedIn])
 
   const onSubmit = async (data) => {
     try {

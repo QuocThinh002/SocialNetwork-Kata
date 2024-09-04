@@ -1,7 +1,7 @@
 @import '../../utils//variables';
 
 
-.personal {
+.profile-friend {
     width: 950px;
     margin: auto;
 
@@ -82,16 +82,25 @@
         flex: 1;
         align-items: center;
         justify-content: end;
+        gap: 12px;
+
         &__btn {
-            background-color: var(--seven-color);
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: var(--eight-color);
+            gap: 6px;
+
+            &:hover {
+                background-color: var(--eight-hover-color);
+            }
         }
-    
-        &__text {
-            margin-left: 6px;
-        }
+
+
+    }
+
+    &__text {
+        margin-left: 6px;
     }
 
     &__box-bio {
@@ -101,3 +110,8 @@
     }
 }
 
+.btn {
+    &--color {
+        background-color: var(--nine-color);
+    }
+}

@@ -1,0 +1,72 @@
+const chatModel = require('../models/chat.model')
+const jwt = require('jsonwebtoken')
+const UserModel = require('../models/user.model')
+
+const {uploadImage, uploadToCloudinary} = require('../configs/cloudinary.config')
+
+module.exports = (io) => {
+    // xác thực token => userId
+    io.use((socket, next) => {
+        const token = socket.handshake.query.token;
+    
+        if (token) {
+            jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+                if (err) {
+                    return next(new Error('Authentication error'));
+                }
+                socket.userId = decoded.userId; // Lưu userId vào socket object
+                next();
+            });
+        } else {
+            next(new Error('Authentication error'));
+        }
+    });
+
+
+    io.on('connection', (socket) => {
+        console.log('User connected: ', socket.id);
+
+        socket.on('CLIENT_SEND_MESSAGE', async (data) => {
+            console.log(data)
+            const images = [];
+
+
+            if (data.images) {
+                let imgs = data.images;
+                if (imgs.length > 6) imgs = imgs.slice(0, 6);
+
+                for (const imageBuffer of imgs) {
+                    const link = await uploadToCloudinary(imageBuffer);
+                    console.log(link)
+                    images.push(link);
+                }
+            }
+            
+            // save to database
+            const chat = new chatModel({
+                senderId: socket.userId,
+                content: data.content,
+                images: images
+            })
+            await chat.save()
+
+            // Truy xuất tên người gửi từ cơ sở dữ liệu
+            const user = await UserModel.findById(socket.userId).lean().select('name profilePicture');
+            const sender = user ? user : 'Unknown';
+            console.log('user::', user)
+
+            // return for client
+            io.emit('SERVER_RETURN_MESSAGE', {
+                content: data.content,
+                senderId: socket.userId,
+                senderName: sender.name,
+                profilePicture: sender.profilePicture,
+                images: images
+            });
+        });
+
+        socket.on('disconnect', () => {
+            console.log('User disconnected: ', socket.id);
+        });
+    });
+};

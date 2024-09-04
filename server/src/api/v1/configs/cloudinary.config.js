@@ -30,8 +30,22 @@ const videoStorage = new CloudinaryStorage({
   }
 });
 
+const uploadToCloudinary = async (imageBuffer) => {
+  try {
+    const base64String = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`; // Convert Buffer to base64 string
+    const result = await cloudinary.uploader.upload(base64String, {
+      folder: 'Kata/images'
+    });
+    return result.secure_url; // Return the URL of the uploaded image
+  } catch (error) {
+    console.error('Error uploading to Cloudinary:', error);
+    throw error;
+  }
+};
+
+
 const uploadImage = multer({ storage: imageStorage });
 const uploadVideo = multer({ storage: videoStorage });
 
-module.exports = { uploadImage, uploadVideo };
+module.exports = { uploadImage, uploadVideo, uploadToCloudinary };
 

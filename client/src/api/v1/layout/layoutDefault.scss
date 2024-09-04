@@ -22,3 +22,15 @@
 .loading {
     background-color: red;
 }
+
+::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--ten-color);        /* color of the tracking area */
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--four-color);    /* color of the scroll thumb */
+    border-radius: 8px;       /* roundness of the scroll thumb */
+    border: 2px solid var(--ten-color);  /* creates padding around scroll thumb */
+}

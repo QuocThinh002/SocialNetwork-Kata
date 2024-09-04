@@ -52,3 +52,14 @@ export const signOut = () => async (dispatch) => {
         
     }
 }
+
+export const signOutTokenExpired = () => async (dispatch) => {
+    try {
+        
+            dispatch({
+                type: actionTypes.SIGN_OUT
+            })
+    } catch (error) {
+        
+    }
+}

@@ -6,7 +6,7 @@ const JWT = require('jsonwebtoken')
 const userModel = require('../models/user.model')
 
 const { getInfoData, getInfoDataOmit } = require('../utils')
-const { generateAccessToken, generateRefreshToken, generatePasswordResetToken } = require('../middleware/jwt')
+const { generateAccessToken, generateRefreshToken, generatePasswordResetToken } = require('../utils/jwt')
 const sendMail = require('../utils/sendMail')
 
 class AccessController {
