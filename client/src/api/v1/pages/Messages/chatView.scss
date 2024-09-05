@@ -16,7 +16,6 @@
     }
 
     &__main {
-
         height: calc(100vh - 64px - 70px);
         overflow-y: auto;
         /* Thay đổi từ scroll thành auto để cuộn khi cần */
@@ -39,6 +38,7 @@
     &__foot {
         padding: 8px;
         border-top: 1px solid #ccc;
+        position: relative;
 
         &:focus-within {
             border-top-color: var(--one-color);
@@ -113,7 +113,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-top: 4px;
 
             &__sender-name {
                 background-color: #cfc7f7;
@@ -252,15 +251,18 @@
 }
 
 .preview-images {
-    height: 100px;
-    width: 100%;
+    position: absolute;
+    bottom: calc(100% + 16px);
+    left: 8px;
+    width: calc(100% - 16px);
     border: 2px solid var(--four-color);
     border-radius: 12px;
     padding: 8px;
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     background-color: var(--background-color);
-    position: relative;
+    z-index: 1;
 
     &__close {
         position: absolute;
@@ -276,18 +278,19 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
-        color: #dc2626;
+        border: 1px solid var(--error-color);
+        color: var(--error-color);
         z-index: 1;
 
         &:hover {
-            background-color: #dc2626;
+            background-color: var(--error-color);
             color: #fff;
         }
     }
 
     &__item {
-        height: 100%;
-        width: calc(100% / 6 - 8px - 4px);
+        height: 100px;
+        width: calc(33% - 8px);
         border: 1px solid #ccc;
         border-radius: 4px;
         position: relative;
@@ -302,7 +305,7 @@
         &__close {
             position: absolute;
             top: -6px;
-            right: -6px;
+            left: -6px;
             width: 20px;
             height: 20px;
             background-color: #fff;
@@ -317,7 +320,7 @@
             border: 1px solid #ccc;
 
             &:hover {
-                color: #dc2626;
+                color: var(--error-color);
             }
         }
     }
@@ -325,8 +328,21 @@
 
 /* list-typing  */
 .list-typing {
+    position: absolute;
+    bottom: 100%;
+    left: 8px;
+
     &__box {
         position: relative;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+
+        &__name {
+            font-size: 1rem;
+            color: var(--typing-color);
+        }
 
         &__dots {
             position: relative;
@@ -336,13 +352,12 @@
             align-items: center;
             justify-content: center;
             border-radius: 45px;
-            margin-top: 2px;
 
             span {
                 animation: blink 1.5s infinite;
                 height: 5px;
                 width: 5px;
-                background: var(--one-color);
+                background: var(--typing-color);
                 border-radius: 50%;
                 display: inline-block;
                 margin: 0 3px;
@@ -374,3 +389,13 @@
 }
 
 /* end list-typing */
+
+@for $i from 1 through 10 {
+    .isPreview-#{$i} {
+        @if $i <= 3 {
+            padding-bottom: calc(100px + 48px);
+        } @else {
+            padding-bottom: calc(200px + 48px);
+        }
+    }
+}

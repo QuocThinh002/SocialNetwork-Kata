@@ -30,7 +30,7 @@ const videoStorage = new CloudinaryStorage({
   }
 });
 
-const uploadToCloudinary = async (imageBuffer) => {
+const uploadBuffer = async (imageBuffer) => {
   try {
     const base64String = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`; // Convert Buffer to base64 string
     const result = await cloudinary.uploader.upload(base64String, {
@@ -47,5 +47,5 @@ const uploadToCloudinary = async (imageBuffer) => {
 const uploadImage = multer({ storage: imageStorage });
 const uploadVideo = multer({ storage: videoStorage });
 
-module.exports = { uploadImage, uploadVideo, uploadToCloudinary };
+module.exports = { uploadImage, uploadVideo, uploadBuffer };
 

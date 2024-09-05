@@ -26,11 +26,14 @@
     --outgoing-color: #e1ecff;
     --incoming-color: #fff;
     --background-conv-color: #f6f6f6;
+    --typing-color: #2563eb;
+    --error-color: #dc2626;
   
     --one-text-color: #000;
     --two-text-color: #94a3b8;
     --three-text-color: #dc2626;
     --four-text-color: #fff;
+
   }
   
   // Ghi đè trong dark mode
@@ -57,6 +60,8 @@
     --outgoing-color: #525252;
     --incoming-color: #404040;
     --background-conv-color: #171717;
+    --typing-color: #e5e7eb;
+    --error-color: #dc2626;
   
     --one-text-color: #fff;
     --two-text-color: #e5e7eb;

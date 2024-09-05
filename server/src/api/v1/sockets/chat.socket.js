@@ -2,7 +2,7 @@ const chatModel = require('../models/chat.model')
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models/user.model')
 
-const {uploadImage, uploadToCloudinary} = require('../configs/cloudinary.config')
+const {uploadImage, uploadBuffer} = require('../configs/cloudinary.config')
 
 module.exports = (io) => {
     // xác thực token => userId
@@ -36,7 +36,7 @@ module.exports = (io) => {
                 if (imgs.length > 6) imgs = imgs.slice(0, 6);
 
                 for (const imageBuffer of imgs) {
-                    const link = await uploadToCloudinary(imageBuffer);
+                    const link = await uploadBuffer(imageBuffer);
                     console.log(link)
                     images.push(link);
                 }
@@ -63,6 +63,14 @@ module.exports = (io) => {
                 profilePicture: sender.profilePicture,
                 images: images
             });
+        });
+
+        socket.on('CLIENT_SEND_TYPING', (data) => {
+            socket.broadcast.emit('SERVER_RETURN_TYPING', data);
+        });
+
+        socket.on('CLIENT_STOP_TYPING', (data) => {
+            socket.broadcast.emit('SERVER_STOP_TYPING', data);
         });
 
         socket.on('disconnect', () => {

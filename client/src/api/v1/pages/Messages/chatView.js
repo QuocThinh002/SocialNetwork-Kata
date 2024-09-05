@@ -3,13 +3,10 @@ import { socket } from '../../../../socket';
 import { FaRegFaceSmile, FaTrash, FaXmark } from 'react-icons/fa6';
 import { RiSendPlane2Fill } from 'react-icons/ri';
 import { MdAttachFile } from 'react-icons/md';
-
 import './chatView.scss';
 import { useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
-
 import { apiGetConversation } from '../../services/chat.services';
-import { isAction } from 'redux';
 
 const ChatView = () => {
     const { user } = useSelector(state => state.userReducer);
@@ -17,10 +14,28 @@ const ChatView = () => {
     const [msg, setMsg] = useState('');
     const [images, setImages] = useState([]);
     const [imagesUrl, setImagesUrl] = useState([]);
-    const chatEndRef = useRef(null);
-    const fileInputRef = useRef(null); // Ref để truy cập input file
     const [showPicker, setShowPicker] = useState(false);
+    const [typingUsers, setTypingUsers] = useState([]);
+    const chatEndRef = useRef(null);
+    const fileInputRef = useRef(null);
+    const typingTimeoutRef = useRef(null); // Ref để theo dõi thời gian gõ
+
     const MAX_IMAGES = 6;
+
+    const handleTyping = useCallback(() => {
+        // Nếu đã có một timeout đang chạy, xóa nó
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
+        }
+
+        // Gửi thông tin typing khi người dùng gõ tin nhắn
+        socket.emit('CLIENT_SEND_TYPING', { userId: user._id, userName: user.name });
+
+        // Thiết lập một timeout để xóa thông tin typing sau 1 giây không gõ
+        typingTimeoutRef.current = setTimeout(() => {
+            socket.emit('CLIENT_STOP_TYPING', { userId: user._id });
+        }, 2000);
+    }, [user._id, user.name]);
 
     const handleEmojiClick = (emojiData) => {
         setMsg((prevMsg) => prevMsg + emojiData.emoji);
@@ -39,37 +54,6 @@ const ChatView = () => {
         setImages((prevImages) => [...prevImages, ...files]);
         setImagesUrl((prevImagesUrl) => [...prevImagesUrl, ...newImageUrls]);
     };
-
-    useEffect(() => {
-        const handleMessageReceive = (message) => {
-            setMessages(prevMessages => [...prevMessages, message]);
-        };
-
-        socket.on('SERVER_RETURN_MESSAGE', handleMessageReceive);
-
-        return () => {
-            socket.off('SERVER_RETURN_MESSAGE');
-        };
-    }, []);
-
-    useEffect(() => {
-        const func = async () => {
-            const response = await apiGetConversation();
-            const msgs = response?.data?.messages;
-
-            console.log('msgs::', msgs)
-
-            setMessages(msgs)
-            console.log("messages::", messages)
-        }
-        func()
-    }, [])
-
-    useEffect(() => {
-        if (chatEndRef.current) {
-            chatEndRef.current.scrollIntoView({ behavior: 'smooth' }); // Tự động cuộn xuống cuối cùng
-        }
-    }, [messages, imagesUrl]);
 
     const handleSendMessage = useCallback((e) => {
         e.preventDefault();
@@ -90,7 +74,7 @@ const ChatView = () => {
         if (fileInputRef.current) {
             fileInputRef.current.value = null; // Reset giá trị input file khi đóng preview
         }
-    }
+    };
 
     const handleClosePreviewImageItem = (image) => {
         const index = imagesUrl.indexOf(image);
@@ -111,12 +95,81 @@ const ChatView = () => {
         }
     };
 
+    useEffect(() => {
+        const handleTyping = (data) => {
+            const exists = typingUsers.some(user => user.userId == data.userId);
+
+            // console.log('data::', data)
+            // console.log('exists::', exists)
+            // console.log('typingUsers::', typingUsers)
+            // console.log('----------------------------------\n')
+
+            if (!exists)
+                setTypingUsers(prevTypingUsers => [...prevTypingUsers, data]);;
+        };
+
+        const handleStopTyping = (data) => {
+            setTypingUsers(prevTypingUsers => prevTypingUsers.filter(user => user.userId !== data.userId));
+        };
+
+        socket.on('SERVER_RETURN_TYPING', handleTyping);
+        socket.on('SERVER_STOP_TYPING', handleStopTyping);
+
+        return () => {
+            socket.off('SERVER_RETURN_TYPING', handleTyping);
+            socket.off('SERVER_STOP_TYPING', handleStopTyping);
+        };
+    }, []);
+
+    console.log(typingUsers)
+
+
+    useEffect(() => {
+        if (msg) {
+            handleTyping();
+        } else {
+            // Xóa thông tin "typing" nếu không còn gõ
+            if (typingTimeoutRef.current) {
+                clearTimeout(typingTimeoutRef.current);
+            }
+            socket.emit('CLIENT_STOP_TYPING', { userId: user._id });
+        }
+    }, [msg, handleTyping, user._id]);
+
+    useEffect(() => {
+        const handleMessageReceive = (message) => {
+            setMessages(prevMessages => [...prevMessages, message]);
+        };
+
+        socket.on('SERVER_RETURN_MESSAGE', handleMessageReceive);
+
+        return () => {
+            socket.off('SERVER_RETURN_MESSAGE');
+        };
+    }, []);
+
+    useEffect(() => {
+        const func = async () => {
+            const response = await apiGetConversation();
+            const msgs = response?.data?.messages;
+
+            setMessages(msgs);
+        };
+        func();
+    }, []);
+
+    useEffect(() => {
+        if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView(); // Tự động cuộn xuống cuối cùng
+        }
+    }, []);
+
     return (
         <div className='chat-view'>
             <div className='chat-view__head'>
                 avt
             </div>
-            <div className='chat-view__main'>
+            <div className={'chat-view__main isPreview-' + imagesUrl.length}>
                 {messages.length !== 0 && <div>
                     {messages.map((message, idx) => (
                         <div className={(user._id === message.senderId) ? 'chat-view__outgoing' : 'chat-view__incoming'} key={idx}>
@@ -137,32 +190,37 @@ const ChatView = () => {
                         </div>
                     ))}
 
-                    {imagesUrl && imagesUrl.length > 0 && (
-                        <div className='preview-images'>
-                            <button onClick={handleClosePreviewImage} className='preview-images__close'><FaXmark /></button>
-                            {imagesUrl.map((image, idx) => (
-                                <div className='preview-images__item' key={idx}>
-                                    <img src={image} alt={`preview-${idx}`} />
-                                    <button onClick={() => handleClosePreviewImageItem(image)} className='preview-images__item__close'><FaTrash /></button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                </div>}
+
+
+                <div ref={chatEndRef}></div>
+            </div>
+            <div className='chat-view__foot'>
+                {imagesUrl && imagesUrl.length > 0 && (
+                    <div className='preview-images'>
+                        <button onClick={handleClosePreviewImage} className='preview-images__close'><FaXmark /></button>
+                        {imagesUrl.map((image, idx) => (
+                            <div className='preview-images__item' key={idx}>
+                                <img src={image} alt={`preview-${idx}`} />
+                                <button onClick={() => handleClosePreviewImageItem(image)} className='preview-images__item__close'><FaTrash /></button>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {typingUsers.length > 0 && (
                     <div className='list-typing'>
                         <div className='list-typing__box'>
-                            <div class="list-typing__box__name"> 'name'
-                                <div class="list-typing__box__dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                            <div className='list-typing__box__name'>
+                                {typingUsers[0].userName}
+                            </div>
+                            <div className='list-typing__box__dots'>
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </div>
                         </div>
                     </div>
-                    <div ref={chatEndRef}></div>
-                </div>}
-            </div>
-            <div className='chat-view__foot'>
+                )}
                 <form className='chat-view__foot__form-msg' onSubmit={handleSendMessage}>
                     <input value={msg} onChange={(e) => setMsg(e.target.value)} placeholder={'Nhập tin nhắn...'} />
                     <input
