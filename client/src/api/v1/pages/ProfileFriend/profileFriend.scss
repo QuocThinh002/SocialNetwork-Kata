@@ -95,6 +95,7 @@
                 background-color: var(--eight-hover-color);
             }
         }
+        
 
 
     }
@@ -114,4 +115,12 @@
     &--color {
         background-color: var(--nine-color);
     }
+
+    &__msg {
+        background-color: var(--nine-color);
+
+        &:hover {
+            background-color: var(--nine-hover-color);
+        }
+    }   
 }

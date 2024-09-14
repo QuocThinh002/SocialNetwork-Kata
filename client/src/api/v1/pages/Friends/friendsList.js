@@ -32,14 +32,14 @@ function FriendsList() {
                 </div>
 
                 {friends?.map(friend => (<div
-                    key={friend._id}
+                    key={friend?._id}
                     className='friends-list__item'
                     onClick={() => hanldeClickFriend(friend)}
                 >
                     <div className='friends-list__item__image'>
                         <img src={friend?.profilePicture || `${window.location.origin}/assets/image/sky.jpg`} />
                     </div>
-                    <div className='friends-list__item__name'>{friend.name}</div>
+                    <div className='friends-list__item__name'>{friend?.name}</div>
                 </div>))}
             </div>
 

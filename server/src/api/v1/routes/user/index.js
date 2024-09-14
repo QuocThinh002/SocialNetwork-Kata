@@ -14,6 +14,7 @@ router.patch('/updateMe',
 );
 router.get('/getFriends', userController.getFriends);
 router.get('/getUser/:userId', userController.getUser)
+router.get('/search', userController.searchUser)
 
 
 

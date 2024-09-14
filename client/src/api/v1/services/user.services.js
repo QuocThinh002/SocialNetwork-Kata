@@ -53,3 +53,17 @@ export const apiUpdateUser = async (payload) => {
 
     }
 }
+
+
+export const apiSearchUser = async (email) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `${domain}/user/search?email=${email}`
+        })
+
+        return response
+    } catch (error) {
+
+    }
+}

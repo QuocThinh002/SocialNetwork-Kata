@@ -29,8 +29,9 @@ const userSchema = new Schema({
         default: 'other'
     },
     friends: [{
-        type: Schema.Types.ObjectId, ref: 'User',
-        alias: { type: String, trim: true, maxLength: 55, default: ''}
+        userId: {type: Schema.Types.ObjectId, ref: 'User'},
+        alias: { type: String, trim: true, maxLength: 55, default: '' },
+        conversationId: {type: Schema.Types.ObjectId, ref: 'Conversation'}
     }],
     blockUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     notifications: [{

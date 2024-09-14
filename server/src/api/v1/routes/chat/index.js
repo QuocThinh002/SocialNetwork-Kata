@@ -2,9 +2,10 @@
 const express = require('express')
 const router = express.Router()
 
-const chatController = require('../../controllers/chat.controller')
+const ChatController = require('../../controllers/chat.controller')
 
-router.get('/conversation', chatController.getConversation)
+router.get('/conversation/:conversationId', ChatController.getConversation)
+router.post('/get-create-conv/:orderUserId', ChatController.getCreateConversation)
 
 
 

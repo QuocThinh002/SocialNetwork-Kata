@@ -7,13 +7,13 @@ const COLLECTION_NAME = 'Conversations'
 const conversationSchema = new Schema({
     name: { type: String, trim: true },
     isGroup: { type: Boolean, default: false },
+    background: String,
     lastMessage: { // last message in this conversation
         content: {type: Schema.ObjectId, ref: 'Message'}, 
         lastMessageTime: {type: Date}
     },
     pinnedMessage: { type: Schema.ObjectId, ref: 'Message' },
-    admin: { type: Schema.ObjectId, ref: 'User' },
-    deputyAdmins: [{ type: Schema.ObjectId, ref: 'User' }],
+    members: [{userId: { type: Schema.ObjectId, ref: 'User' }, role: {type: String, enum: ['supperAdmin', 'admin', 'user'], default: 'user'}}],
 }, {
     collection: COLLECTION_NAME
 })

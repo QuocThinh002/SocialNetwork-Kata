@@ -1,6 +1,7 @@
 const chatModel = require('../models/chat.model')
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models/user.model')
+const ConversationModel = require('../models/conversation.model')
 
 const {uploadImage, uploadBuffer} = require('../configs/cloudinary.config')
 
@@ -27,7 +28,15 @@ module.exports = (io) => {
         console.log('User connected: ', socket.id);
 
         socket.on('CLIENT_SEND_MESSAGE', async (data) => {
-            console.log(data)
+
+            const conversation = await ConversationModel.findById(data.conversationId).select('members');
+            const existConv = conversation.members.findIndex(member => member.userId === socket.userId)
+            if (existConv) {
+                socket.join(data.conversationId)
+            }
+            // socket.join(data.conversationId)
+
+            // console.log(data)
             const images = [];
 
 
@@ -37,7 +46,7 @@ module.exports = (io) => {
 
                 for (const imageBuffer of imgs) {
                     const link = await uploadBuffer(imageBuffer);
-                    console.log(link)
+                    // console.log(link)
                     images.push(link);
                 }
             }
@@ -46,6 +55,7 @@ module.exports = (io) => {
             const chat = new chatModel({
                 senderId: socket.userId,
                 content: data.content,
+                conversationId: data.conversationId,
                 images: images
             })
             await chat.save()
@@ -53,10 +63,10 @@ module.exports = (io) => {
             // Truy xuất tên người gửi từ cơ sở dữ liệu
             const user = await UserModel.findById(socket.userId).lean().select('name profilePicture');
             const sender = user ? user : 'Unknown';
-            console.log('user::', user)
+            // console.log('user::', user)
 
             // return for client
-            io.emit('SERVER_RETURN_MESSAGE', {
+            io.to(data.conversationId).emit('SERVER_RETURN_MESSAGE', {
                 content: data.content,
                 senderId: socket.userId,
                 senderName: sender.name,
@@ -66,11 +76,12 @@ module.exports = (io) => {
         });
 
         socket.on('CLIENT_SEND_TYPING', (data) => {
-            socket.broadcast.emit('SERVER_RETURN_TYPING', data);
+            socket.broadcast.to(data.conversationId).emit('SERVER_RETURN_TYPING', data);
         });
 
         socket.on('CLIENT_STOP_TYPING', (data) => {
-            socket.broadcast.emit('SERVER_STOP_TYPING', data);
+            socket.join(data.conversationId)
+            socket.broadcast.to(data.conversationId).emit('SERVER_STOP_TYPING', data);
         });
 
         socket.on('disconnect', () => {

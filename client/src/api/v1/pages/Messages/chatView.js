@@ -7,6 +7,7 @@ import './chatView.scss';
 import { useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
 import { apiGetConversation } from '../../services/chat.services';
+import { useSearchParams } from 'react-router-dom';
 
 const ChatView = () => {
     const { user } = useSelector(state => state.userReducer);
@@ -19,6 +20,9 @@ const ChatView = () => {
     const chatEndRef = useRef(null);
     const fileInputRef = useRef(null);
     const typingTimeoutRef = useRef(null); // Ref để theo dõi thời gian gõ
+    const [searchParams, setSearchParams] = useSearchParams()
+    const convId = searchParams.get('convId');
+
 
     const MAX_IMAGES = 6;
 
@@ -28,14 +32,15 @@ const ChatView = () => {
             clearTimeout(typingTimeoutRef.current);
         }
 
+        // console.log(convId)
         // Gửi thông tin typing khi người dùng gõ tin nhắn
-        socket.emit('CLIENT_SEND_TYPING', { userId: user._id, userName: user.name });
+        socket.emit('CLIENT_SEND_TYPING', { userId: user?._id, userName: user?.name, conversationId: convId });
 
-        // Thiết lập một timeout để xóa thông tin typing sau 1 giây không gõ
+        // Thiết lập một timeout để xóa thông tin typing sau 2 giây không gõ
         typingTimeoutRef.current = setTimeout(() => {
-            socket.emit('CLIENT_STOP_TYPING', { userId: user._id });
+            socket.emit('CLIENT_STOP_TYPING', { userId: user?._id, conversationId: convId });
         }, 2000);
-    }, [user._id, user.name]);
+    }, [user?._id, user?.name]);
 
     const handleEmojiClick = (emojiData) => {
         setMsg((prevMsg) => prevMsg + emojiData.emoji);
@@ -58,7 +63,7 @@ const ChatView = () => {
     const handleSendMessage = useCallback((e) => {
         e.preventDefault();
         if (msg.trim() || images.length) {
-            socket.emit('CLIENT_SEND_MESSAGE', { content: msg.trim(), images });
+            socket.emit('CLIENT_SEND_MESSAGE', {conversationId: convId, content: msg.trim(), images });
             setMsg('');
             setImages([]);
             setImagesUrl([]);
@@ -97,7 +102,7 @@ const ChatView = () => {
 
     useEffect(() => {
         const handleTyping = (data) => {
-            const exists = typingUsers.some(user => user.userId == data.userId);
+            const exists = typingUsers.some(user => user?.userId === data.userId);
 
             // console.log('data::', data)
             // console.log('exists::', exists)
@@ -109,7 +114,7 @@ const ChatView = () => {
         };
 
         const handleStopTyping = (data) => {
-            setTypingUsers(prevTypingUsers => prevTypingUsers.filter(user => user.userId !== data.userId));
+            setTypingUsers(prevTypingUsers => prevTypingUsers.filter(user => user?.userId !== data.userId));
         };
 
         socket.on('SERVER_RETURN_TYPING', handleTyping);
@@ -132,9 +137,9 @@ const ChatView = () => {
             if (typingTimeoutRef.current) {
                 clearTimeout(typingTimeoutRef.current);
             }
-            socket.emit('CLIENT_STOP_TYPING', { userId: user._id });
+            socket.emit('CLIENT_STOP_TYPING', { userId: user?._id });
         }
-    }, [msg, handleTyping, user._id]);
+    }, [msg, handleTyping, user?._id]);
 
     useEffect(() => {
         const handleMessageReceive = (message) => {
@@ -150,8 +155,8 @@ const ChatView = () => {
 
     useEffect(() => {
         const func = async () => {
-            const response = await apiGetConversation();
-            const msgs = response?.data?.messages;
+            const response = await apiGetConversation(convId);
+            const msgs = response?.data?.messages || '';
 
             setMessages(msgs);
         };
@@ -160,9 +165,9 @@ const ChatView = () => {
 
     useEffect(() => {
         if (chatEndRef.current) {
-            chatEndRef.current.scrollIntoView(); // Tự động cuộn xuống cuối cùng
+            chatEndRef.current.scrollIntoView({ behavior: 'smooth' }); // Tự động cuộn xuống cuối cùng
         }
-    }, []);
+    }, [convId, messages]);
 
     return (
         <div className='chat-view'>
@@ -172,8 +177,8 @@ const ChatView = () => {
             <div className={'chat-view__main isPreview-' + imagesUrl.length}>
                 {messages.length !== 0 && <div>
                     {messages.map((message, idx) => (
-                        <div className={(user._id === message.senderId) ? 'chat-view__outgoing' : 'chat-view__incoming'} key={idx}>
-                            {user._id !== message.senderId && <div className='box-msg'>
+                        <div className={(user?._id === message.senderId) ? 'chat-view__outgoing' : 'chat-view__incoming'} key={idx}>
+                            {user?._id !== message.senderId && <div className='box-msg'>
                                 <div className='chat-view__profile-picture'>
                                     <img src={message.profilePicture} alt="profile" />
                                 </div>
@@ -181,7 +186,7 @@ const ChatView = () => {
                             </div>}
                             {message.content && <p className={'content-msg'}>{message.content}</p>}
                             {message.images && message.images.length > 0 && (
-                                <div className={'content-img content-img-' + ((message.images.length == 1) ? 'one' : (message.images.length % 2 == 1 ? 'odd' : 'even'))}>
+                                <div className={'content-img content-img-' + ((message.images.length === 1) ? 'one' : (message.images.length % 2 === 1 ? 'odd' : 'even'))}>
                                     {message.images.map((image, idx) => (
                                         <img src={image} alt={`img-${idx}`} key={idx} />
                                     ))}

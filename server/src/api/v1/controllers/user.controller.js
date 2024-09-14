@@ -1,5 +1,5 @@
 const { constant } = require('lodash');
-const userModel = require('../models/user.model');
+const UserModel = require('../models/user.model');
 const { getInfoData, getInfoDataOmit } = require('../utils');
 
 class UserController {
@@ -16,7 +16,7 @@ class UserController {
                 })
             }
 
-            const user = await userModel.findById(userId).lean();
+            const user = await UserModel.findById(userId).lean();
 
             return res.status(200).json({
                 status: !!user,
@@ -40,7 +40,7 @@ class UserController {
                 })
             }
 
-            const user = await userModel.findById(userId).lean();
+            const user = await UserModel.findById(userId).lean();
             if (!user) {
                 return res.status(404).json({
                     status: false,
@@ -49,7 +49,7 @@ class UserController {
             }
             const friends = await Promise.all(
                 user.friends.map(async (item) => {
-                    const friend = await userModel.findById(item).lean().select('id name profilePicture');
+                    const friend = await UserModel.findById(item).lean().select('id name profilePicture');
                     return friend;
                 })
             );
@@ -93,7 +93,7 @@ class UserController {
             console.log({ payload })
             // const user = false;
 
-            const user = await userModel.findByIdAndUpdate(userId, payload, { new: true }).select('-password -role -refreshToken');
+            const user = await UserModel.findByIdAndUpdate(userId, payload, { new: true }).select('-password -role -refreshToken');
             return res.status(200).json({   
                 status: user ? true : false,
                 user: getInfoDataOmit({ fileds: ["password", "role", "status", "verificationToken", "refreshToken", "passwordChangedAt", "passwordResetToken", "passwordResetExpires"], object: user.toObject() }),
@@ -115,7 +115,7 @@ class UserController {
                 })
             }
 
-            const user = await userModel.findById(userId).lean();
+            const user = await UserModel.findById(userId).lean();
             if (!user) {
                 return res.status(404).json({
                     status: false,
@@ -128,6 +128,31 @@ class UserController {
                 message: 'Get friends successfully',
                 user: user ? getInfoData({ fileds: ['name', 'profilePricture', 'coverPhoto', 'bio', 'gender'], object: user }) : null
             });
+        } catch (error) {
+            
+        }
+    }
+
+    searchUser = async (req, res) => {
+        try {
+            console.log('[GET]::searchUser::');
+            const { email } = req.query;
+
+            // console.log({email})
+            if (!email) {
+                return res.status(200).json({
+                    status: false,
+                    message: 'No right'
+                })
+            }
+
+            const user = await UserModel.findOne({email}).lean().select('_id name profilePicture');
+    
+            return res.status(200).json({
+                success: !!user,
+                message: user ? 'search successfully' : 'error',
+                user: user
+            }); 
         } catch (error) {
             
         }
