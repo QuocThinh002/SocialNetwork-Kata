@@ -15,7 +15,7 @@ function FriendsList() {
         setSearchParams({userId: friend._id})
     }
 
-    console.log(friends)
+    // console.log(friends)
     return (<>
         <div className="friends-list">
 

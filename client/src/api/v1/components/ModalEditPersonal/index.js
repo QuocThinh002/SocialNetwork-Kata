@@ -92,9 +92,9 @@ function ModalEditPersonal(props) {
         if (coverPhoto) formData.append('coverPhoto', coverPhoto);
 
         if (data.name !== user?.name) formData.append('name', data.name);
-        if (data.name !== user?.email) formData.append('email', data.email);
-        if (data.name !== user?.bio) formData.append('bio', data.bio);
-        if (data.name !== user?.gender) formData.append('gender', data.gender);
+        if (data.email !== user?.email) formData.append('email', data.email);
+        if (data.bio !== user?.bio) formData.append('bio', data.bio);
+        if (data.gender !== user?.gender) formData.append('gender', data.gender);
 
         
         console.log('formData::', formData)

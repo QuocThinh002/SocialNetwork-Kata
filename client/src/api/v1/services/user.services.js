@@ -5,7 +5,7 @@ export const apiGetMe = async () => {
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `${domain}/user/getMe`,
+            url: `${domain}/user/me`,
         })
         return response
     } catch (error) {
@@ -17,7 +17,7 @@ export const apiGetFriends = async () => {
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `${domain}/user/getFriends`,
+            url: `${domain}/user/friends`,
         })
         return response
     } catch (error) {
@@ -29,7 +29,7 @@ export const apiGetUser = async (userId) => {
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `${domain}/user/getUser/${userId}`,
+            url: `${domain}/user/user/${userId}`,
         })
         return response
     } catch (error) {
@@ -67,3 +67,49 @@ export const apiSearchUser = async (email) => {
 
     }
 }
+
+export const apiAddFriend = async (friendId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/user/addFriend`,
+            data: friendId
+        })
+
+        return response
+    } catch (error) {
+
+    }
+}
+
+export const apiGetFriendRequests = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `${domain}/user/friendRequests`,
+        })
+
+        return response
+    } catch (error) {
+
+    }
+}
+
+export const apiCancelAddFriend = async (friendId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'patch',
+            url: `${domain}/user/cancelAddFriend`,
+            data: friendId
+        })
+
+        return response
+    } catch (error) {
+
+    }
+}
+
+
+
+
+

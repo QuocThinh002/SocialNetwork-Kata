@@ -13,6 +13,18 @@ export const apiGetConversation = async (convId) => {
     }
 }
 
+export const apiGetConversationsInfo = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `${domain}/chat/conversations/`,
+        })
+        return response
+    } catch (error) {
+
+    }
+}
+
 export const apiGetCreateConv = async (otherUserId) => {
     try {
         const response = await axiosConfig({
@@ -23,5 +35,23 @@ export const apiGetCreateConv = async (otherUserId) => {
 
     } catch (error) {
         
+    }
+}
+
+export const apiCreateGroup = async (data) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/chat/createGroup/`,
+            data,
+            headers: {
+                'Content-Type': "multipart/form-data"
+            }
+        })
+        console.log('response::::', response)
+        return response
+
+    } catch (error) {
+        console.lcg('errr:' ,error)
     }
 }

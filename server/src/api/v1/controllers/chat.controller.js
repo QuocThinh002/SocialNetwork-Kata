@@ -63,6 +63,73 @@ class ChatController {
         }
     }
 
+    getConversations = async (req, res) => {
+        try {
+            console.log('[GET]:::conversations')
+            const { userId } = req.user;
+
+            if (!userId) {
+                return res.status(401).json({
+                    status: false,
+                    message: 'No right'
+                })
+            }
+
+            const convs = await ConversationModel.find({
+                deleted: false,
+                members: {
+                    $elemMatch: { userId: userId }
+                }
+            }).sort({updatedAt: -1}).lean();
+
+            const conversations = await Promise.all(convs.map(async (conv) => {
+                if (conv.isGroup) {
+                    // Nếu là nhóm (isGroup = true), lấy 4 thành viên đầu tiên
+                    const membersDetails = await Promise.all(
+                        conv.members.slice(0, 4).map(async (member) => {
+                            const user = await UserModel.findById(member.userId).select('profilePicture name').lean();
+                            return {
+                                profilePicture: user.profilePicture,
+                                name: user.name
+                            };
+                        })
+                    );
+                    return {
+                        ...conv,
+                        members: membersDetails
+                    };
+
+                } else {
+                    // Nếu không phải là nhóm (isGroup = false), lấy toàn bộ user
+                    const membersDetails = await Promise.all(
+                        conv.members.map(async (member) => {
+                            const user = await UserModel.findById(member.userId).select('profilePicture name').lean();
+                            return {
+                                userId: user.userId,
+                                profilePicture: user.profilePicture,
+                                name: user.name
+                            };
+                        })
+                    );
+                    return {
+                        ...conv,
+                        members: membersDetails
+                    };
+                }
+            }));
+
+
+            console.log('convs::', convs)
+
+            return res.status(200).json({
+                success: !!convs,
+                convs: conversations
+            })
+        } catch (error) {
+
+        }
+    }
+
     getCreateConversation = async (req, res) => {
         console.log('[POST]::create-conversation::')
         try {
@@ -76,7 +143,7 @@ class ChatController {
                 isGroup: false,
                 'members.userId': { $all: [userId, orderUserId] } // Check that both userId1 and userId2 exist in members.userId
             }).lean();
-            
+
 
             console.log('Conversation::', conversation)
 
@@ -95,6 +162,43 @@ class ChatController {
             })
         } catch (error) {
 
+        }
+    }
+
+    createGroup = async (req, res) => {
+        console.log('[POST]::create-group::')
+        try {
+            const { userId } = req.user;
+            const { groupName, selectedFriends } = req.body;
+            const avatar = req.files?.avatar[0]?.path;
+            // console.log({ groupName, avatar, selectedFriends })
+
+            // console.log(userId)
+            if (selectedFriends?.length < 2) {
+                return res.status().json({
+                    success: false,
+                    message: 'it nhat 2 nguoi'
+                })
+            }
+            const members = [{ userId, role: 'supperAdmin' }]
+            selectedFriends.forEach(friendId => {
+                members.push({userId: friendId})
+            });
+
+            const conversation = await ConversationModel.create({
+                isGroup: true,
+                members,
+                avatar,
+                name: groupName
+            });
+
+            // console.log('create okok::')
+            return res.status(200).json({
+                success: !!conversation,
+                conversationId: conversation ? conversation._id : null
+            })
+        } catch (error) {
+            console.error('error', error)
         }
     }
 }

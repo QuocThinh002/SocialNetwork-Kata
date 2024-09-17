@@ -8,9 +8,11 @@ import { useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
 import { apiGetConversation } from '../../services/chat.services';
 import { useSearchParams } from 'react-router-dom';
+import ChatInfo from "./chatInfo";
 
 const ChatView = () => {
     const { user } = useSelector(state => state.userReducer);
+    const [displayChatInfo, setDisplayChatInfo] = useState(false);
     const [messages, setMessages] = useState([]);
     const [msg, setMsg] = useState('');
     const [images, setImages] = useState([]);
@@ -63,7 +65,7 @@ const ChatView = () => {
     const handleSendMessage = useCallback((e) => {
         e.preventDefault();
         if (msg.trim() || images.length) {
-            socket.emit('CLIENT_SEND_MESSAGE', {conversationId: convId, content: msg.trim(), images });
+            socket.emit('CLIENT_SEND_MESSAGE', { conversationId: convId, content: msg.trim(), images });
             setMsg('');
             setImages([]);
             setImagesUrl([]);
@@ -126,7 +128,7 @@ const ChatView = () => {
         };
     }, []);
 
-    console.log(typingUsers)
+    // console.log(typingUsers)
 
 
     useEffect(() => {
@@ -148,9 +150,9 @@ const ChatView = () => {
 
         socket.on('SERVER_RETURN_MESSAGE', handleMessageReceive);
 
-        return () => {
-            socket.off('SERVER_RETURN_MESSAGE');
-        };
+        // return () => {
+        //     socket.off('SERVER_RETURN_MESSAGE');
+        // };
     }, []);
 
     useEffect(() => {
@@ -161,7 +163,7 @@ const ChatView = () => {
             setMessages(msgs);
         };
         func();
-    }, []);
+    }, [convId]);
 
     useEffect(() => {
         if (chatEndRef.current) {
@@ -169,86 +171,95 @@ const ChatView = () => {
         }
     }, [convId, messages]);
 
-    return (
-        <div className='chat-view'>
-            <div className='chat-view__head'>
-                avt
-            </div>
-            <div className={'chat-view__main isPreview-' + imagesUrl.length}>
-                {messages.length !== 0 && <div>
-                    {messages.map((message, idx) => (
-                        <div className={(user?._id === message.senderId) ? 'chat-view__outgoing' : 'chat-view__incoming'} key={idx}>
-                            {user?._id !== message.senderId && <div className='box-msg'>
-                                <div className='chat-view__profile-picture'>
-                                    <img src={message.profilePicture} alt="profile" />
+    return (<>
+        {convId  ? <>
+            <div className='chat-view'>
+                <div className='chat-view__head'>
+                    avt
+                </div>
+                <div className={'chat-view__main isPreview-' + imagesUrl.length}>
+                    {messages.length !== 0 && <div>
+                        {messages.map((message, idx) => (
+                            <div className={(user?._id === message.senderId) ? 'chat-view__outgoing' : 'chat-view__incoming'} key={idx}>
+                                {user?._id !== message.senderId && <div className='box-msg'>
+                                    <div className='chat-view__profile-picture'>
+                                        <img src={message.profilePicture} alt="profile" />
+                                    </div>
+                                    <span className='box-msg__sender-name'>{message.senderName}</span>
+                                </div>}
+                                {message.content && <p className={'content-msg'}>{message.content}</p>}
+                                {message.images && message.images.length > 0 && (
+                                    <div className={'content-img content-img-' + ((message.images.length === 1) ? 'one' : (message.images.length % 2 === 1 ? 'odd' : 'even'))}>
+                                        {message.images.map((image, idx) => (
+                                            <img src={image} alt={`img-${idx}`} key={idx} />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+
+                    </div>}
+
+
+                    <div ref={chatEndRef}></div>
+                </div>
+                <div className='chat-view__foot'>
+                    {imagesUrl && imagesUrl.length > 0 && (
+                        <div className='preview-images'>
+                            <button onClick={handleClosePreviewImage} className='preview-images__close'><FaXmark /></button>
+                            {imagesUrl.map((image, idx) => (
+                                <div className='preview-images__item' key={idx}>
+                                    <img src={image} alt={`preview-${idx}`} />
+                                    <button onClick={() => handleClosePreviewImageItem(image)} className='preview-images__item__close'><FaTrash /></button>
                                 </div>
-                                <span className='box-msg__sender-name'>{message.senderName}</span>
-                            </div>}
-                            {message.content && <p className={'content-msg'}>{message.content}</p>}
-                            {message.images && message.images.length > 0 && (
-                                <div className={'content-img content-img-' + ((message.images.length === 1) ? 'one' : (message.images.length % 2 === 1 ? 'odd' : 'even'))}>
-                                    {message.images.map((image, idx) => (
-                                        <img src={image} alt={`img-${idx}`} key={idx} />
-                                    ))}
+                            ))}
+                        </div>
+                    )}
+                    {typingUsers.length > 0 && (
+                        <div className='list-typing'>
+                            <div className='list-typing__box'>
+                                <div className='list-typing__box__name'>
+                                    {typingUsers[0].userName}
+                                </div>
+                                <div className='list-typing__box__dots'>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <form className='chat-view__foot__form-msg' onSubmit={handleSendMessage}>
+                        <input value={msg} onChange={(e) => setMsg(e.target.value)} placeholder={'Nhập tin nhắn...'} />
+                        <input
+                            type="file"
+                            multiple
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            id='upload-images'
+                            ref={fileInputRef} // Gắn ref vào input file
+                        />
+                        <div className='chat-view__foot__emoji-box'>
+                            <button type='button' className='chat-view__foot__emoji-box__icon' onClick={() => setShowPicker(!showPicker)}><FaRegFaceSmile /></button>
+                            {showPicker && (
+                                <div className='chat-view__foot__emoji-box__emoji'>
+                                    <EmojiPicker onEmojiClick={handleEmojiClick} suggestedEmojisMode='recent' skinTonesDisabled={true} searchDisabled={true} emojiStyle='facebook' />
                                 </div>
                             )}
                         </div>
-                    ))}
-
-                </div>}
-
-
-                <div ref={chatEndRef}></div>
+                        <label htmlFor='upload-images' className='attach-file'><MdAttachFile /></label>
+                        <button type='submit' className='chat-view__foot__send'><RiSendPlane2Fill /></button>
+                    </form>
+                </div>
             </div>
-            <div className='chat-view__foot'>
-                {imagesUrl && imagesUrl.length > 0 && (
-                    <div className='preview-images'>
-                        <button onClick={handleClosePreviewImage} className='preview-images__close'><FaXmark /></button>
-                        {imagesUrl.map((image, idx) => (
-                            <div className='preview-images__item' key={idx}>
-                                <img src={image} alt={`preview-${idx}`} />
-                                <button onClick={() => handleClosePreviewImageItem(image)} className='preview-images__item__close'><FaTrash /></button>
-                            </div>
-                        ))}
-                    </div>
-                )}
-                {typingUsers.length > 0 && (
-                    <div className='list-typing'>
-                        <div className='list-typing__box'>
-                            <div className='list-typing__box__name'>
-                                {typingUsers[0].userName}
-                            </div>
-                            <div className='list-typing__box__dots'>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                <form className='chat-view__foot__form-msg' onSubmit={handleSendMessage}>
-                    <input value={msg} onChange={(e) => setMsg(e.target.value)} placeholder={'Nhập tin nhắn...'} />
-                    <input
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        id='upload-images'
-                        ref={fileInputRef} // Gắn ref vào input file
-                    />
-                    <div className='chat-view__foot__emoji-box'>
-                        <button type='button' className='chat-view__foot__emoji-box__icon' onClick={() => setShowPicker(!showPicker)}><FaRegFaceSmile /></button>
-                        {showPicker && (
-                            <div className='chat-view__foot__emoji-box__emoji'>
-                                <EmojiPicker onEmojiClick={handleEmojiClick} suggestedEmojisMode='recent' skinTonesDisabled={true} searchDisabled={true} emojiStyle='facebook' />
-                            </div>
-                        )}
-                    </div>
-                    <label htmlFor='upload-images' className='attach-file'><MdAttachFile /></label>
-                    <button type='submit' className='chat-view__foot__send'><RiSendPlane2Fill /></button>
-                </form>
-            </div>
-        </div>
+        </> : <>
+                <div className='chat-none'>
+                    Chao mung ban den voi Kata
+                </div>
+        </>}
+
+        {displayChatInfo && <ChatInfo />}
+    </>
     );
 };
 

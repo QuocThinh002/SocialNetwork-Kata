@@ -399,3 +399,16 @@
         }
     }
 }
+
+.chat-none {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    display: flex;
+    font-size: 1.2rem;
+    font-style: normal;
+    color: var(--one-text-color);
+    background-color: var(--background-conv-color);
+    justify-content: center;
+    padding: 100px;
+}

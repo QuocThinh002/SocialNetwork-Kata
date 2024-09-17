@@ -1,20 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../../controllers/user.controller');
+const UserController = require('../../controllers/user.controller');
 const {uploadImage} = require('../../configs/cloudinary.config')
 
 
-router.get('/getMe', userController.getMe)
+router.get('/me', UserController.getMe)
 router.patch('/updateMe',
     uploadImage.fields([
         { name: 'profilePicture', maxCount: 1 },
         { name: 'coverPhoto', maxCount: 1 }
     ]),
-    userController.updateMe
+    UserController.updateMe
 );
-router.get('/getFriends', userController.getFriends);
-router.get('/getUser/:userId', userController.getUser)
-router.get('/search', userController.searchUser)
+router.patch('/cancelAddFriend', UserController.cancelAddFriend)
+
+router.post('/addFriend', UserController.addFriend)
+
+router.get('/friendRequests', UserController.getFriendRequests)
+router.get('/friends', UserController.getFriends);
+router.get('/user/:userId', UserController.getUser)
+router.get('/search', UserController.searchUser)
 
 
 

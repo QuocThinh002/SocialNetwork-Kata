@@ -29,7 +29,7 @@ module.exports = (io) => {
 
         socket.on('CLIENT_SEND_MESSAGE', async (data) => {
 
-            const conversation = await ConversationModel.findById(data.conversationId).select('members');
+            const conversation = await ConversationModel.findById(data.conversationId);
             const existConv = conversation.members.findIndex(member => member.userId === socket.userId)
             if (existConv) {
                 socket.join(data.conversationId)
@@ -60,6 +60,10 @@ module.exports = (io) => {
             })
             await chat.save()
 
+            conversation.lastMessage.content = data.content;
+            conversation.lastMessage.senderId = socket.userId
+            await conversation.save()
+
             // Truy xuất tên người gửi từ cơ sở dữ liệu
             const user = await UserModel.findById(socket.userId).lean().select('name profilePicture');
             const sender = user ? user : 'Unknown';
@@ -67,11 +71,12 @@ module.exports = (io) => {
 
             // return for client
             io.to(data.conversationId).emit('SERVER_RETURN_MESSAGE', {
+                conversationId: data.conversationId,
                 content: data.content,
                 senderId: socket.userId,
                 senderName: sender.name,
                 profilePicture: sender.profilePicture,
-                images: images
+                images: images,
             });
         });
 

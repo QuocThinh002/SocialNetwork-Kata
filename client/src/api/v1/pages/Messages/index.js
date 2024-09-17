@@ -1,4 +1,4 @@
-import ChatInfo from "./chatInfo";
+
 import ChatView from "./chatView";
 import ConvList from "./convList";
 
@@ -9,7 +9,6 @@ function Message() {
         <div className="message">
             <ConvList />
             <ChatView />
-            <ChatInfo />
         </div>
     </>)
 }

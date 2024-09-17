@@ -3,5 +3,12 @@
 .conv-list {
     width: 350px;
     height: 100vh;
+    
+    overflow: hidden;
+
+    .convs {
+        height: calc(100% - 200px);
+        overflow-y: auto;
+    }
 }
 

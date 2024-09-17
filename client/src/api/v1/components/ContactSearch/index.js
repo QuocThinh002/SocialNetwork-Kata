@@ -5,10 +5,14 @@ import { MdGroupAdd } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { apiSearchUser } from '../../services/user.services';
+import UserItem from '../UserItem';
+import ModalCreateGroup from '../ModelCreateGroup';
 
 function ContactSearch() {
     const { t } = useTranslation();
     const [user, setUser] = useState();
+    const [showModalCreateGroup, setShowModelCreateGroup] = useState(false);
+    // console.log('user::', user)
 
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -28,6 +32,10 @@ function ContactSearch() {
 
         func()
     };
+
+    const handleCreateGroup = () => {
+        setShowModelCreateGroup(true);
+    }
 
     return (<>
         <div>
@@ -49,20 +57,19 @@ function ContactSearch() {
                     <span className='tooltip__text'>{t("messages.add_friend")}</span>
                 </div>
 
-                <div className='tooltip' onClick={() => alert('create group')}>
+                <div className='tooltip' onClick={handleCreateGroup}>
                     <MdGroupAdd className='contact-search__icon' />
                     <span className='tooltip__text'>{t("messages.create_group_chat")}</span>
                 </div>
             </div>
 
-            {user && <div className='show-search'>
-                <div className='show-item'>
-                    <div className='show-item__image'><img src={user?.profilePicture} /></div>
-                    <div className='show-item__name'>{user?.name}</div>
-                    
-                </div>
+            {user ? <div className='show-search'>
+                <UserItem friend={user} />
+            </div> : <div>
+                Khong tim thay ket qua
             </div>}
         </div>
+        {showModalCreateGroup && <ModalCreateGroup setIsOpenModal={setShowModelCreateGroup} />}
     </>)
 }
 
