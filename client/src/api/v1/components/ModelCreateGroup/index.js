@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './modalCreateGroup.scss';
 import { apiCreateGroup } from '../../services/chat.services';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getConversationsInfo } from '../../store/actions/chat.action';
 
 function ModalCreateGroup({ setIsOpenModal }) {
     const { t } = useTranslation();
@@ -17,6 +19,7 @@ function ModalCreateGroup({ setIsOpenModal }) {
     const [selectedFriends, setSelectedFriends] = useState([]);
     const [isLoading, setIsLoading] = useState(false); // New state for loading
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +37,7 @@ function ModalCreateGroup({ setIsOpenModal }) {
 
             if (response?.data?.success) {
                 toast.success('Group created successfully!');
+                await dispatch(getConversationsInfo())
                 navigate(`/messages?convId=${response?.data?.conversationId}`);
                 setIsOpenModal(false);  // Đóng modal khi thành công
             } else {

@@ -1,4 +1,107 @@
+@import '../../utils/variables';
+
+.container {
+
+    background-color: var(--secondary-color);
+    min-height: 100vh;
+}
 
 .feed {
-    color: green;
+    display: flex;
+    flex-direction: column;
+    max-width: 940px;
+    margin: auto;
+    border: 1px solid #ccc;
+    align-items: center;
+    gap: 12px;
+
+    &__story {
+        margin-top: 10px;
+        height: 250px;
+        width: 100%;
+        // background-color: red;
+
+        &__create {
+            width: 150px;
+            height: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            &__box {
+                width: 100%;
+                height: 50px;
+                position: relative;
+                text-align: center;
+
+                &__add {
+                    position: absolute;
+                    left: calc(50% - 16px);
+                    bottom: calc(50% + 16px);
+                    font-size: 18px;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    border: 3px solid #333;
+                    color: white;
+                    background-color: var(--nine-color);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                &__text {
+                    color: var(--one-text-color);
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    text-align: center;
+                    line-height: 50px;
+                }
+            }
+        }
+    }
+
+    &__create-post {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: var(--post-color);
+
+        &__head {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+    
+            img {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                cursor: pointer;
+                object-fit: cover;
+            }
+
+            &__text {
+                width: 100%;
+                border: 1px solid #ccc;
+                
+                cursor: pointer;
+
+                border-radius: 8px;
+                font-size: 1.5rem;
+                line-height: 48px;
+                padding-left: 6px;
+            }
+
+
+        }
+    }
 }

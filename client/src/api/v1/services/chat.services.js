@@ -55,3 +55,21 @@ export const apiCreateGroup = async (data) => {
         console.lcg('errr:' ,error)
     }
 }
+
+export const apiCreatePost = async (data) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/post/create/`,
+            data,
+            headers: {
+                'Content-Type': "multipart/form-data"
+            }
+        })
+        console.log('response::::', response)
+        return response
+
+    } catch (error) {
+        console.lcg('errr:' ,error)
+    }
+}

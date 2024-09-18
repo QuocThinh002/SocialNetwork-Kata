@@ -52,11 +52,11 @@ function ConvList() {
     return (<>
         <div className="conv-list">
             <ContactSearch />
-            <divc className="convs">
+            <div className="convs">
                 {conversations && conversations.length > 0 && conversations.map(conversation => (
                     <ConversationItem conv={conversation} key={conversation._id} />
                 ))}
-            </divc>
+            </div>
         </div>
     </>)
 }
