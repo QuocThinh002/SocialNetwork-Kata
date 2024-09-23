@@ -6,14 +6,14 @@ const multer = require('multer');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
+  api_key: process.env.CLOUDINARY_KEY,    
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
 // Storage cho ảnh
 const imageStorage = new CloudinaryStorage({
   cloudinary,
-  allowedFormats: ['jpg', 'png'],
+  allowedFormats: ['jpg', 'png', 'jpeg'],
   params: {
     folder: 'Kata/images',
     resource_type: 'image', // Chỉ định là image

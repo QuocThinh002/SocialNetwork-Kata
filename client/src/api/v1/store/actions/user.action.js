@@ -1,4 +1,4 @@
-import { apiGetFriends, apiGetMe, apiUpdateUser } from "../../services/user.services";
+import { apiGetFriends, apiGetMe, apiUpdateUser } from "../../services/user.service";
 import actionTypes from "./actionTypes";
 
 export const getMe = () => async (dispatch) => {

@@ -75,6 +75,17 @@
             }
         }
 
+        &__ellipsis {
+            width: 40px;
+            height: 40px;
+            // background-color: #bbb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 24px;
+        }
+
     }
 
     &__box-right {
@@ -116,6 +127,10 @@
         background-color: var(--nine-color);
     }
 
+    &__friend {
+        color: var(--four-text-color);
+    }
+
     &__msg {
         background-color: var(--nine-color);
 
@@ -124,3 +139,8 @@
         }
     }   
 }
+
+.cancel-friend {
+    background-color: red;
+}
+

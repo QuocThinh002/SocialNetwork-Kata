@@ -10,6 +10,7 @@ import Personal from "../pages/Personal";
 import { path } from '../utils/constant';
 import Messages from "../pages/Messages";
 import Friends from "../pages/Friends";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -59,5 +60,9 @@ export const routes = [
     {
         path: path.RESET_PASSWORD,
         element: <ResetPassword />
+    },
+    {
+        path: '*',  // Wildcard cho các route không tồn tại
+        element: <Navigate to={'/'} />  // Chuyển hướng về trang chủ
     }
-]
+];

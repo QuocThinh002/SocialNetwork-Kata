@@ -56,10 +56,13 @@ class UserController {
                 })
             );
 
+            
+
+
             return res.status(200).json({
                 status: true,
                 message: 'Get friends successfully',
-                friends: friends
+                friends: friends,
             });
         } catch (error) {
 
@@ -109,6 +112,7 @@ class UserController {
         try {
             console.log('[GET]::getUser::');
             const { userId } = req.params;
+            const meId = req?.user?.userId;
 
             if (!userId) {
                 return res.status(200).json({
@@ -117,7 +121,7 @@ class UserController {
                 })
             }
 
-            const user = await UserModel.findById(userId).lean();
+            const user = await UserModel.findById(userId).select('name profilePicture coverPhoto bio gender friends').lean();
             if (!user) {
                 return res.status(404).json({
                     status: false,
@@ -125,10 +129,24 @@ class UserController {
                 });
             }
 
+            const me = await UserModel.findById(meId).select('friends').lean();
+            
+            const userFriendIds = user?.friends?.map(f => f?.userId?.toString()) || [];
+            const meFriendIds = me?.friends?.map(f => f?.userId?.toString()) || [];
+
+            // console.log(userFriendIds)
+            // console.log(meFriendIds)
+
+            // Tìm bạn chung (mutual friends) giữa user và friend
+            const mutualFriends = meFriendIds?.filter(friendId => userFriendIds?.includes(friendId)) || [];
+            // console.log(mutualFriends)
+
             return res.status(200).json({
                 status: true,
                 message: 'Get friends successfully',
-                user: user ? getInfoData({ fileds: ['name', 'profilePricture', 'coverPhoto', 'bio', 'gender'], object: user }) : null
+                user: user ? getInfoData({ fileds: ['name', 'profilePicture', 'coverPhoto', 'bio', 'gender'], object: user }) : null,
+                mutualFriends
+
             });
         } catch (error) {
 

@@ -6,7 +6,7 @@ import { MdAttachFile } from 'react-icons/md';
 import './chatView.scss';
 import { useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
-import { apiGetConversation } from '../../services/chat.services';
+import { apiGetConversation } from '../../services/chat.service';
 import { useSearchParams } from 'react-router-dom';
 import ChatInfo from "./chatInfo";
 

@@ -6,7 +6,7 @@ import { FaTriangleExclamation } from 'react-icons/fa6'
 import {useNavigate} from 'react-router-dom'
 
 import { signUp } from '../../store/actions/auth.action';
-import { apiSignUp } from '../../services/auth.services';
+import { apiSignUp } from '../../services/auth.service';
 
 const SignUpForm = ({ toggleLogin }) => {
   const { register, formState: { errors }, handleSubmit } = useForm();

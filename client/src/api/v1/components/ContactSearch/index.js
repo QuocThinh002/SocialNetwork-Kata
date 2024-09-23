@@ -4,7 +4,7 @@ import { FaUserPlus, FaSistrix } from 'react-icons/fa6';
 import { MdGroupAdd } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { apiSearchUser } from '../../services/user.services';
+import { apiSearchUser } from '../../services/user.service';
 import UserItem from '../UserItem';
 import ModalCreateGroup from '../ModelCreateGroup';
 
@@ -52,10 +52,6 @@ function ContactSearch() {
                         />
                     </div>
                 </form>
-                <div className='tooltip' onClick={() => alert('add friends')}>
-                    <FaUserPlus className='contact-search__icon' />
-                    <span className='tooltip__text'>{t("messages.add_friend")}</span>
-                </div>
 
                 <div className='tooltip' onClick={handleCreateGroup}>
                     <MdGroupAdd className='contact-search__icon' />

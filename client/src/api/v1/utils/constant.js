@@ -1,8 +1,8 @@
 
 export const path = {
-    HOME: '/*',
+    HOME: '/',
     LOGIN: 'login',
-    FEED: 'feed',
+    FEED: '',
     MESSAGES: 'messages',
     FRIENDS: 'friends',
     USER: 'user',

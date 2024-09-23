@@ -10,7 +10,7 @@ class CreateController {
 
     usersRandom = async (req, res, next) => {
         try {
-            for (let i = 0; i < 500; ++i) {
+            for (let i = 0; i < 200; ++i) {
                 const name = fakerVI.person.fullName();
                 const email = convertVNSlug2(name).split(' ').join('') + i + '@gmail.com';
                 const password = `qwer1234`;
@@ -66,7 +66,7 @@ class CreateController {
 
     friendsRandom = async (req, res, next) => {
         try {
-            const nFriends = randomInt(2000, 10000)
+            const nFriends = randomInt(10000, 12000)
             const users = await userModel.find({ $where: "this.friends.length < 5000" });
             for (let i = 0; i < nFriends; ++i) {
                 let idx1, idx2;

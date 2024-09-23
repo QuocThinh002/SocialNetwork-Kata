@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './modalCreateGroup.scss';
-import { apiCreateGroup } from '../../services/chat.services';
+import { apiCreateGroup } from '../../services/chat.service';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getConversationsInfo } from '../../store/actions/chat.action';
@@ -36,12 +36,12 @@ function ModalCreateGroup({ setIsOpenModal }) {
             const response = await apiCreateGroup(formData);  // Gửi formData thay vì JSON object
 
             if (response?.data?.success) {
-                toast.success('Group created successfully!');
+                toast.success(t("group.create_group_chat_successfully"));
                 await dispatch(getConversationsInfo())
                 navigate(`/messages?convId=${response?.data?.conversationId}`);
                 setIsOpenModal(false);  // Đóng modal khi thành công
             } else {
-                toast.error('Create Group failed');
+                toast.error(t("group.create_group_chat_fail"));
             }
         } catch (error) {
             console.error('Error while creating group:', error);
@@ -57,7 +57,7 @@ function ModalCreateGroup({ setIsOpenModal }) {
             setAvatar(file);
             setAvatarUrl(URL.createObjectURL(file));
         } else {
-            toast.error('Please select a valid image file');
+            toast.error(t("group.select_image_valid"));
         }
     };
 
@@ -77,7 +77,7 @@ function ModalCreateGroup({ setIsOpenModal }) {
                         <FaXmark />
                     </button>
 
-                    <h2 className='modal__title'>{t("group.CrEaTe__gRoUp")}</h2>
+                    <h2 className='modal__title'>{t("group.create_group_chat")}</h2>
                     <form onSubmit={handleSubmit} className="form-create-group">
                         <div className='form-create-group__head'>
                             <div className='form-create-group__profile-picture'>
@@ -95,7 +95,7 @@ function ModalCreateGroup({ setIsOpenModal }) {
                                     required
                                     value={groupName}
                                     onChange={(e) => setGroupName(e.target.value)}
-                                    placeholder='Nhập tên nhóm ...'
+                                    placeholder={t("group.enter_the_group_name")}
                                     disabled={isLoading}
                                 />
                             </div>
@@ -125,7 +125,7 @@ function ModalCreateGroup({ setIsOpenModal }) {
                         <div className='form-create-group__submit'>
                             <span onClick={() => !isLoading && setIsOpenModal(false)} className='btn btn__cancel' disabled={isLoading}>{t("group.cancel")}</span>
                             <button type="submit" className='btn btn__submit' disabled={isLoading}>
-                                {isLoading ? <div className="spinner"></div> : t("group.CrEaTe")}
+                                {isLoading ? <div className="spinner"></div> : t("group.create_group_chat")}
                             </button>
                         </div>
                     </form>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './userItem.scss'
 import { useSelector } from 'react-redux';
-import { apiAddFriend, apiCancelAddFriend, apiGetFriendRequests } from '../../services/user.services';
+import { apiAddFriend, apiCancelAddFriend, apiGetFriendRequests } from '../../services/user.service';
 import { useSearchParams } from 'react-router-dom';
 
 function UserItem(props) {

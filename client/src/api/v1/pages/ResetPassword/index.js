@@ -3,7 +3,7 @@ import './resetPassword.scss'
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'
-import { apiResetPassword } from '../../services/auth.services';
+import { apiResetPassword } from '../../services/auth.service';
 import { useLocation } from 'react-router-dom';
 
 

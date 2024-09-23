@@ -37,7 +37,10 @@
     "updating_profile": "Updating profile",
     "update_profile_success": "Updating profile successfully",
     "update_profile_error": "Update profile fail",
-    "message": "Message"
+    "message": "Message",
+    "mutual_friends": "{{number}} mutual friends",
+    "add_friends": "Add friends",
+    "unfriend": "Unfriend"
   },
   "notifications": {
     "new": "New",
@@ -65,7 +68,14 @@
   "post": {
     "edit_post": "Edit Post",
     "delete_post": "Delete Post",
-    "comment_placeholder": "Write a comment..."
+    "comment_placeholder": "Write a comment...",
+    "what_mind": "What's on your mind, {{name}}?",
+    "create_story": "Create story",
+    "create_post": "Create post",
+    "post": "Post",
+    "friends": "Friends",
+    "private": "Private",
+    "cancel": "Cancel"
   },
   "errors": {
     "required_field": "This field is required",
@@ -83,8 +93,18 @@
     "already_account": "Already have an account?"
   },
   "friends": {
-    "none-profile": "Select people's names to preview their profile.",
+    "none_profile": "Select people's names to preview their profile.",
     "friends_list": "Friends list",
-    "friends": "Friends"
+    "friends": "Friends",
+    "search_friends": "Search friends",
+    "not_found": "Not found!"
+  },
+  "group": {
+    "create_group_chat": "Create group chat",
+    "create_group_chat_successfully": "Group chat created successfully!",
+    "create_group_chat_fail": "Create group chat fail!",
+    "select_image_valid": "Please select a valid image file!",
+    "cancel": "Cancel",
+    "enter_the_group_name": "Enter the group name"
   }
 }

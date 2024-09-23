@@ -5,7 +5,7 @@ import { FaTriangleExclamation } from 'react-icons/fa6'
 
 import './forgotPassword.scss'
 import { path } from '../../utils/constant'
-import { apiForgotPassword } from '../../services/auth.services';
+import { apiForgotPassword } from '../../services/auth.service';
 
 
 const ForgetPassword = () => {

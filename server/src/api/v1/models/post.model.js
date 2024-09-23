@@ -1,11 +1,21 @@
 const mongoose = require('mongoose')
+const { Schema } = mongoose;
 
 const DOCUMENT_NAME = 'Post'
 const COLLECTION_NAME = 'Posts'
 
 const postSchema = new mongoose.Schema(
     {
-        
+        userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+        content: String,
+        images: [String],
+        video: String,
+        tags: [String],
+        taggedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+        likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+        parentTop: { type: Schema.Types.ObjectId, ref: 'Post' },
+        parent: { type: Schema.Types.ObjectId, ref: 'Post' },
+        audience: {type: String, enum: ['friends', 'private'], default: 'friends'},
         deleted: {
             type: Boolean,
             default: false

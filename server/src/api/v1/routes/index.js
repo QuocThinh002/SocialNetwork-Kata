@@ -12,6 +12,7 @@ router.use(domain + '/kata', require('./auth'))
 router.use([verifyAccessToken])
 router.use(domain + '/user', require('./user'))
 router.use(domain + '/chat', require('./chat'))
+router.use(domain + '/post', require('./post'))
 
 
 

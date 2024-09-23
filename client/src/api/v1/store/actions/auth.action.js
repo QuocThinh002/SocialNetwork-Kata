@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import {apiSignIn, apiSignOut, apiSignUp} from '../../services/auth.services'
+import {apiSignIn, apiSignOut, apiSignUp} from '../../services/auth.service'
 
 export const signUp = (response) => async (dispatch) => {
     try {

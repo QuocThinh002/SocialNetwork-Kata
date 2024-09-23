@@ -10,7 +10,7 @@ import { updateUser, updateUserNoneApi } from '../../store/actions/user.action';
 import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './modelEditPersonal.scss';
-import { apiUpdateUser } from '../../services/user.services';
+import { apiUpdateUser } from '../../services/user.service';
 
 function ModalEditPersonal(props) {
     const { t } = useTranslation();

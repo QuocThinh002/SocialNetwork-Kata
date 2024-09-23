@@ -34,9 +34,9 @@ class ChatController {
                 return acc;
             }, {});
 
-            console.log('users::', users)
+            // console.log('users::', users)
 
-            console.log('userMap::', userMap)
+            // console.log('userMap::', userMap)
 
             // Tạo dữ liệu trả về với thông tin người gửi
             const data = messages.map(message => {
@@ -119,7 +119,7 @@ class ChatController {
             }));
 
 
-            console.log('convs::', convs)
+            // console.log('convs::', convs)
 
             return res.status(200).json({
                 success: !!convs,
@@ -136,7 +136,7 @@ class ChatController {
             const { userId } = req.user;
             const { orderUserId } = req.params;
 
-            console.log(userId, orderUserId)
+            // console.log(userId, orderUserId)
 
             // Kiểm tra xem cuộc trò chuyện giữa hai người dùng đã tồn tại chưa
             let conversation = await ConversationModel.findOne({
@@ -145,7 +145,7 @@ class ChatController {
             }).lean();
 
 
-            console.log('Conversation::', conversation)
+            // console.log('Conversation::', conversation)
 
 
             // Nếu chưa có cuộc trò chuyện, tạo mới
@@ -155,7 +155,7 @@ class ChatController {
                     members: [{ userId }, { userId: orderUserId }]
                 });
             }
-            console.log('create okok::')
+            // console.log('create okok::')
             return res.status(200).json({
                 success: !!conversation,
                 conversationId: conversation ? conversation._id : null
@@ -170,8 +170,9 @@ class ChatController {
         try {
             const { userId } = req.user;
             const { groupName, selectedFriends } = req.body;
-            const avatar = req.files?.avatar[0]?.path;
+            const avatar = req?.files?.avatar && req?.files?.avatar[0]?.path;
             // console.log({ groupName, avatar, selectedFriends })
+            // console.log('avatar:::', avatar)
 
             // console.log(userId)
             if (selectedFriends?.length < 2) {
@@ -199,6 +200,9 @@ class ChatController {
             })
         } catch (error) {
             console.error('error', error)
+            return res.status(500).json({
+                success: false
+            })
         }
     }
 }

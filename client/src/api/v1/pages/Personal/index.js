@@ -50,7 +50,7 @@ function Personal() {
                     </div>
                 </div>
                 {user?.bio && <div className='personal__box-bio'>
-                    <p>{user?.bio}</p>
+                    <pre>{user?.bio}</pre>
                 </div>}
             </div>
         </div>

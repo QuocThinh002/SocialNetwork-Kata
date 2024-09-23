@@ -16,7 +16,7 @@ function Friends() {
             </div>
             {!userId ? <>
                 <div className='friends__none-profile'>
-                    <p className='friends__none-profile__title'>{t("friends.none-profile")}</p>
+                    <p className='friends__none-profile__title'>{t("friends.none_profile")}</p>
                 </div>
             </> : <>
                 <div className='friends__right'>

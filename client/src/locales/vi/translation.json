@@ -37,7 +37,10 @@
     "updating_profile": "Đang cập nhật trang cá nhân",
     "update_profile_success": "Cập nhật trang cá nhân thành công",
     "udpate_profile_error": "Cập nhật trang cá nhân thất bại",
-    "message": "Nhắn tin"
+    "message": "Nhắn tin",
+    "mutual_friends": "{{number}} bạn chung",
+    "add_friends": "Thêm bạn",
+    "unfriend": "Huỷ kết bạn"
   },
   "notifications": {
     "new": "Mới",
@@ -65,7 +68,14 @@
   "post": {
     "edit_post": "Chỉnh sửa bài viết",
     "delete_post": "Xóa bài viết",
-    "comment_placeholder": "Viết bình luận..."
+    "comment_placeholder": "Viết bình luận...",
+    "what_mind": "Bạn đang nghĩ gì, {{name}}?",
+    "create_story": "Tạo khoảnh khắc",
+    "create_post": "Tạo bài viết",
+    "post": "Đăng",
+    "friends":"Bạn bè",
+    "private":"Riêng tư",
+    "cancel": "Huỷ"
   },
   "errors": {
     "required_field": "Trường này là bắt buộc",
@@ -83,8 +93,18 @@
     "already_account": "Bạn đã có tài khoản?"
   },
   "friends": {
-    "none-profile": "Chọn tên của mọi người để xem trước hồ sơ của họ.",
+    "none_profile": "Chọn tên của mọi người để xem trước hồ sơ của họ.",
     "friends_list": "Danh sách bạn bè",
-    "friends": "Bạn bè"
+    "friends": "Bạn bè",
+    "search_friends": "Tìm kiếm bạn bè",
+    "not_found": "Không tìm thấy!"
+  },
+  "group": {
+    "create_group_chat": "Tạo nhóm nhắn tin",
+    "create_group_chat_successfully": "Tạo nhóm nhắn tin thành công!",
+    "create_group_chat_fail": "Tạo nhóm nhắn tin thất bại!",
+    "select_image_valid": "Vui lòng chọn ảnh hợp lệ!",
+    "cancel": "Huỷ",
+    "enter_the_group_name": "Nhập tên nhóm"
   }
 }

@@ -1,4 +1,4 @@
-import { apiGetConversationsInfo } from "../../services/chat.services";
+import { apiGetConversationsInfo } from "../../services/chat.service";
 import actionTypes from "./actionTypes";
 
 
