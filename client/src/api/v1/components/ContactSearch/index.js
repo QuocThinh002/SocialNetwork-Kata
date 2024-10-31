@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { apiSearchUser } from '../../services/user.service';
 import UserItem from '../UserItem';
-import ModalCreateGroup from '../ModelCreateGroup';
+import ModalCreateGroup from '../ModalCreateGroup';
 
 function ContactSearch() {
     const { t } = useTranslation();

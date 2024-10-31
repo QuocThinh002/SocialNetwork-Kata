@@ -1,11 +1,23 @@
 @import '../../utils/variables';
 
-.post-images {
+.post-images, .post-video {
     position: relative;
     width: 100%;
     aspect-ratio: 16/9;
     overflow: hidden;  // Ẩn phần ảnh vượt quá khung
     
+
+    &__page-number {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        padding: 2px 4px;
+        font-size: 1.2rem;
+        border-radius: 8px;
+
+    }
 
     &__track {
         display: flex;
@@ -27,15 +39,21 @@
 
     // Nút điều khiển trái phải
     &__control {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.4);
         color: white;
         padding: 8px;
         border-radius: 50%;
         cursor: pointer;
         font-size: 18px;
+        // opacity: 0;
 
         &--left {
             left: 10px;

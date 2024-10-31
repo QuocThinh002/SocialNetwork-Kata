@@ -1,6 +1,6 @@
 import './feed.scss';
 import { useSelector } from 'react-redux';
-import { FaEllipsis, FaLock, FaPlus, FaUserGroup } from 'react-icons/fa6';
+import { FaBookmark, FaComment, FaEllipsis, FaFaceAngry, FaFaceGrinHearts, FaFaceLaughSquint, FaFaceSurprise, FaHeart, FaLock, FaPlus, FaRegBookmark, FaRegFaceAngry, FaShareFromSquare, FaUserGroup } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { path } from '../../utils/constant';
 import { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import PostImages from './PostImages';
 import PostContent from './PostContent';
 import { useTranslation } from 'react-i18next';
 import { getName } from '../../utils';
+import { BiLike, BiSolidLike } from 'react-icons/bi';
 
 function Feed() {
     const { t } = useTranslation();
@@ -18,6 +19,7 @@ function Feed() {
     const navigate = useNavigate();
     const [isShowCreatePost, setIsShowCreatePost] = useState(false); // Trạng thái để hiển thị modal tạo bài viết
     const [posts, setPosts] = useState([]); // Danh sách bài post
+    const [isComment, setIsComment] = useState[false];
 
     const handleToggleCreatePost = () => {
         setIsShowCreatePost(!isShowCreatePost); // Đóng mở modal tạo bài viết
@@ -32,6 +34,8 @@ function Feed() {
         };
         func();
     }, []);
+
+    console.log(posts)
 
     return (
         <>
@@ -59,9 +63,9 @@ function Feed() {
                                 onClick={handleToggleCreatePost}
                                 className="feed__create-post__head__text"
                             >
-                                {t("post.what_mind", {name: getName(user?.name)})}
+                                {t("post.what_mind", { name: getName(user?.name) })}
                             </div>
-                            xóa bạn Chuyển tiếp
+                            dang video, like, share, bookmarks, dang stroy, xem stories, , binh luan
                         </div>
                     </div>
 
@@ -101,6 +105,15 @@ function Feed() {
                                             />
                                         )}
 
+                                        {post?.video && (
+                                            <div className="post__content__video">
+                                                <video controls width="100%">
+                                                    <source src={post.video} type="video/mp4" />
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </div>
+                                        )}
+
                                         {post?.images && (
                                             <div className="post__content__images">
                                                 {post?.images?.length > 0 && (
@@ -108,10 +121,32 @@ function Feed() {
                                                 )}
                                             </div>
                                         )}
+
+
+                                    </div>
+                                    <div className='post__foot'>
+                                        <span className='post__feeling'>
+                                            {post?.likes?.find(item => item._id == user?._id) === undefined
+                                                ? <span className='post__feeling__unlike'><BiLike /></span>
+                                                : <>
+                                                    <span className='post__feeling__like'><BiSolidLike /></span>
+                                                    {/* <span className='post__feeling__heart'><FaHeart /></span>
+                                                    <span className='post__feeling__angry'><FaFaceAngry /></span>
+                                                    <span className='post__feeling__grint-hearts'><FaFaceGrinHearts /></span>
+                                                    <span className='post__feeling__squint'><FaFaceLaughSquint /></span>
+                                                    <span className='post__feeling__surprise'><FaFaceSurprise /></span> */}
+                                                </>
+                                            }
+                                        </span>
+
+                                        <span className='post__foot__bookmark'><FaBookmark /><FaRegBookmark /></span>
+                                        <span className='post__foot__comment'><FaComment /></span>
+                                        <span className='post__foot__share'><FaShareFromSquare /></span>
                                     </div>
                                 </div>
                             ))}
                     </div>
+
                 </div>
                 {isShowCreatePost && (
                     <ModalCreatePost user={user} handleToggleModal={handleToggleCreatePost} />

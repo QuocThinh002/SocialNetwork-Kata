@@ -185,7 +185,7 @@ class UserController {
             const { userId } = req.user;
 
             // console.log({friendId, userId})
-            if (!friendId || !userId) {
+            if (!friendId || !userId || friendId == userId) {
                 return res.status(404).json({
                     status: false,
                     message: 'No right'
@@ -238,9 +238,7 @@ class UserController {
                 await friend.save()
                 await friendRequestUser.save()
                 await userRequestFriend.save()
-            }
-            
-            if (userRequestFriend?.status === 'rejected') {
+            } else  {
                 console.log('rejected:::::')
                 userRequestFriend.status = 'pending'
                 await userRequestFriend.save()
@@ -254,6 +252,40 @@ class UserController {
             return res.status(200).json({
                 success: true,
                 message: 'Friend request successfully',
+            });
+        } catch (error) {
+            console.error('Error adding friend:', error);
+            return res.status(500).json({
+                status: false,
+                message: 'Internal server error'
+            });
+        }
+    }
+
+    unfriend = async (req, res) => {
+        try {
+            console.log('[POST]::unfriend::');
+            const { friendId } = req.body
+            const { userId } = req.user;
+
+            const user = await UserModel.findById(userId);
+            const friend = await UserModel.findById(friendId);
+
+            const userFriends = user?.friends;
+            const friendFriends = friend?.friends;
+
+            if (userFriends && friendFriends) {
+                user.friends = userFriends.filter(friend => friend.userId != friendId);
+                friend.friends = friendFriends.filter(friend => friend.userId != userId);
+
+                await user.save()
+                await friend.save()
+            }
+           
+
+            return res.status(200).json({
+                success: true,
+                message: 'unfriend request successfully',
             });
         } catch (error) {
             console.error('Error adding friend:', error);

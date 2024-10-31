@@ -4,10 +4,14 @@
 .friends-list {
     border-right: 1px solid #ccc;
     max-height: 100vh;
-    width: 350px;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     font-size: 1.25rem;
+
+    &__left {
+        width: 350px;
+    }
 
     &__title {
         font-size: 1.75rem;
@@ -65,7 +69,7 @@
     &__card {
         padding: 10px;
         overflow-y: scroll;
-        // height: calc(100vh - 104px);
+        height: calc(100vh - 104px);
         flex: 1;
 
         h3 {
@@ -100,4 +104,35 @@
         }
     }
 
+    &__show {
+        background-color: inherit;
+        position: relative;
+
+        span {
+            position: absolute;
+            right: -14px;
+            top: calc(50vh - 14px);
+            width: 28px;
+            height: 28px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            color: var(--nine-color);
+            // background-color: var(--two-color);
+            background-color: #fff;
+            z-index: 1;
+            border: 1px solid #646464;
+
+            &:hover {
+                // background-color: var(--two-hover-color);
+            }
+        }
+    }
+}
+
+.none {
+    display: none;
 }

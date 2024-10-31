@@ -5,7 +5,8 @@
     "friends": "Friends",
     "notifications": "Notifications",
     "messages": "Messages",
-    "settings": "Settings"
+    "settings": "Settings",
+    "find_user": "Find user"
   },
   "Home": {
     "create_post": "What's on your mind, {{name}}?",
@@ -53,7 +54,9 @@
     "no_messages": "No messages",
     "send": "Send",
     "add_friend": "Add friend",
-    "create_group_chat": "Create group chat"
+    "create_group_chat": "Create group chat",
+    "forward": "Forward",
+    "search_conv": "Search Conversation"
   },
   "settings": {
     "account": "Account Settings",
@@ -97,7 +100,11 @@
     "friends_list": "Friends list",
     "friends": "Friends",
     "search_friends": "Search friends",
-    "not_found": "Not found!"
+    "not_found": "Not found!",
+    "confirm": "Confirm",
+    "add_friend": "Add friend",
+    "unfriend": "Unfriend",
+    "message": "Message"
   },
   "group": {
     "create_group_chat": "Create group chat",
@@ -105,6 +112,10 @@
     "create_group_chat_fail": "Create group chat fail!",
     "select_image_valid": "Please select a valid image file!",
     "cancel": "Cancel",
-    "enter_the_group_name": "Enter the group name"
+    "enter_the_group_name": "Enter the group name",
+    "conv_info": "Conversation information",
+    "group_info": "Group information",
+    "member_list": "Member list",
+    "add_member": "Add member"
   }
 }

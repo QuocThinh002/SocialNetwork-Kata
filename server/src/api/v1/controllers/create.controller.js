@@ -66,36 +66,44 @@ class CreateController {
 
     friendsRandom = async (req, res, next) => {
         try {
-            const nFriends = randomInt(10000, 12000)
+            const nFriends = randomInt(10000, 12000);
             const users = await userModel.find({ $where: "this.friends.length < 5000" });
+    
             for (let i = 0; i < nFriends; ++i) {
                 let idx1, idx2;
                 do {
-                    idx1 = randomInt(0, users.length - 1)
+                    idx1 = randomInt(0, users.length - 1);
                     idx2 = randomInt(0, users.length - 1);
-                } while (idx1 == idx2)
-
+                } while (idx1 == idx2);
+    
                 let user1 = users[idx1];
                 let user2 = users[idx2];
-                let isFriend = user1.friends.includes(user2._id);
-                if (!isFriend) {
-                    user1.friends.push({userId: user2._id, alias: user2.name});
-                    user2.friends.push({userId: user1._id, alias: user1.name});
-
-                    await Promise.all([userModel.updateOne({ _id: user1._id }, { friends: user1.friends }),
-                    userModel.updateOne({ _id: user2._id }, { friends: user2.friends })]);
+    
+                // Sử dụng Set để loại bỏ trường hợp trùng lặp
+                let friendsSet1 = new Set(user1.friends.map(friend => friend.userId.toString()));
+                let friendsSet2 = new Set(user2.friends.map(friend => friend.userId.toString()));
+    
+                // Kiểm tra xem user2 đã là bạn của user1 hay chưa
+                if (!friendsSet1.has(user2._id.toString()) && !friendsSet2.has(user1._id.toString())) {
+                    user1.friends.push({ userId: user2._id, alias: user2.name });
+                    user2.friends.push({ userId: user1._id, alias: user1.name });
+    
+                    await Promise.all([
+                        userModel.updateOne({ _id: user1._id }, { friends: user1.friends }),
+                        userModel.updateOne({ _id: user2._id }, { friends: user2.friends })
+                    ]);
                 }
             }
-
-            // 201: CREATED
+    
             return res.status(201).json({
                 code: 201,
                 status: true,
-            })
+            });
         } catch (error) {
-            next(error)
+            next(error);
         }
-    }
+    };
+    
 
 }
 

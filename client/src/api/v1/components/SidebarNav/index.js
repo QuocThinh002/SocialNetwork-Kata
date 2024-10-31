@@ -1,5 +1,5 @@
 import './sidebarNav.scss'
-import { FaGear, FaHouse, FaMessage, FaUserGroup, FaBell } from 'react-icons/fa6'
+import { FaGear, FaHouse, FaMessage, FaUserGroup, FaBell, FaSistrix } from 'react-icons/fa6'
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -72,6 +72,11 @@ function SidebarNav() {
                         <FaBell className="sidebar-nav__icon" />
                         <span className='tooltip__text'>{t("navbar.notifications")}</span>
                     </div>
+                    <div className='tooltip'  onClick={() => navigate(`/${path.FIND_USER}`)}>
+                        <FaSistrix className="sidebar-nav__icon" />
+                        <span className='tooltip__text'>{t("navbar.find_user")}</span>
+                    </div>
+                    
                 </div>
             </div>
 

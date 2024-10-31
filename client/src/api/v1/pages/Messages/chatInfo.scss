@@ -2,4 +2,97 @@
 .chat-info {
     width: 280px;
     height: 100vh;
+    
+    overflow-y: auto;
+
+    &__head {
+        height: 64px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__avatar {
+        height: 200px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+
+        img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    &__avatars {
+        width: 140px;
+        height: 140px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        
+        img {
+            width: 50%;
+            height: 50%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+
+    &__member-list {
+
+        &__title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+
+            :last-child {
+                cursor: pointer;
+                font-size: 20px;
+            }
+            
+            border-bottom: 1px solid #ccc;
+        }
+
+        &__box {
+            &__item {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                padding: 4px 16px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                span {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
+    &__add-member {
+        border-bottom: 1px solid #ccc;
+        padding: 10px 16px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        gap: 10px;
+        color : var(--five-text-color);
+        cursor: pointer;
+    }
 }

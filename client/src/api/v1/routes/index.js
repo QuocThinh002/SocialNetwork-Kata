@@ -11,6 +11,7 @@ import { path } from '../utils/constant';
 import Messages from "../pages/Messages";
 import Friends from "../pages/Friends";
 import { Navigate } from "react-router-dom";
+import FindUser from "../pages/FindUser";
 
 
 
@@ -35,6 +36,10 @@ export const routes = [
             {
                 path: path.FRIENDS,
                 element: <Friends />
+            },
+            {
+                path: path.FIND_USER,
+                element: <FindUser />
             }
         ]
     }, {

@@ -13,9 +13,56 @@
     &__head {
         height: 64px;
         border-bottom: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px 0 10px;
+
+        &__avatar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            
+            img {
+                width: 48px;
+                height: 48px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+
+        &__avatars {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            
+            img {
+                width: 50%;
+                height: 50%;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+
+        &__info {
+            cursor: pointer;
+            font-size: 20px;
+            padding: 8px;
+            margin-right: -8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                background-color: var(--three-hover-color);
+            }
+        }
     }
 
     &__main {
+        background-color: var(--secondary-color);
         height: calc(100vh - 64px - 70px);
         overflow-y: auto;
         /* Thay đổi từ scroll thành auto để cuộn khi cần */
@@ -98,7 +145,10 @@
     }
 
     &__incoming {
+        // background-color: green;
+
         .content-msg {
+            position: relative;
             background: var(--incoming-color);
             padding: .5rem 1rem;
             border-radius: 8px;
@@ -106,7 +156,28 @@
             min-width: 60px;
             margin-bottom: 0.3rem;
             margin-left: 48px;
+            margin-right: 20%;
             box-shadow: 0 1px 1px #ccc;
+
+            .chat-forward {
+                display: none;
+                position: absolute;
+                bottom: 0px;
+                right: -24px;
+                color: var(--nine-color);
+                font-size: 24px;
+
+            }
+
+            &:hover {
+                .chat-forward {
+                    display: block;
+
+                    &:hover {
+                        color: var(--nine-hover-color);
+                    }
+                }
+            }
         }
 
         .box-msg {
@@ -124,17 +195,37 @@
         }
 
         .content-img {
+            position: relative;
             display: flex;
             flex-wrap: wrap;
             width: 60%;
             gap: 4px;
             margin-left: 48px;
             border-radius: 8px;
-            overflow: hidden;
 
             img {
                 aspect-ratio: 16/9;
                 object-fit: cover;
+            }
+
+            .chat-forward {
+                display: none;
+                position: absolute;
+                bottom: 0px;
+                right: -24px;
+                color: var(--nine-color);
+                font-size: 24px;
+
+            }
+
+            &:hover {
+                .chat-forward {
+                    display: block;
+
+                    &:hover {
+                        color: var(--nine-hover-color);
+                    }
+                }
             }
         }
 
@@ -163,6 +254,7 @@
                 }
             }
         }
+        
     }
 
     &__outgoing {
@@ -172,25 +264,67 @@
         margin-bottom: 4px;
 
         .content-msg {
+            position: relative;
             padding: .5rem 1rem;
             background: var(--outgoing-color);
             border-radius: 8px;
             min-width: 60px;
+            margin-left: 20%;
             width: fit-content;
             box-shadow: 0 1px 1px #ccc;
+
+            .chat-forward {
+                display: none;
+                position: absolute;
+                bottom: 0px;
+                left: -24px;
+                color: var(--nine-color);
+                font-size: 24px;
+    
+            }
+    
+            &:hover {
+                .chat-forward {
+                    display: block;
+    
+                    &:hover {
+                        color: var(--nine-hover-color);
+                    }
+                }
+            }
         }
 
         .content-img {
+            position: relative;
             display: flex;
             flex-wrap: wrap;
             width: 60%;
             gap: 4px;
             border-radius: 8px;
-            overflow: hidden;
 
             img {
                 aspect-ratio: 16/9;
                 object-fit: cover;
+            }
+
+            .chat-forward {
+                display: none;
+                position: absolute;
+                bottom: 0px;
+                left: -24px;
+                color: var(--nine-color);
+                font-size: 24px;
+    
+            }
+    
+            &:hover {
+                .chat-forward {
+                    display: block;
+    
+                    &:hover {
+                        color: var(--nine-hover-color);
+                    }
+                }
             }
         }
 

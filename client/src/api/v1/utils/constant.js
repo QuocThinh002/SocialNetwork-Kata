@@ -11,7 +11,8 @@ export const path = {
     PERSONAL: 'personal',
     FORGOT_PASSWORD: 'forgot-password',
     FORGOT_PASSWORD_SUCCESS: 'forgot-password-success',
-    RESET_PASSWORD: 'reset-password/:reset-pw-token'
+    RESET_PASSWORD: 'reset-password/:reset-pw-token',
+    FIND_USER: 'find-user',
 }
 
 export const domain = 'api/v1';

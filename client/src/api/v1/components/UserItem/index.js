@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 import './userItem.scss'
 import { useSelector } from 'react-redux';
 import { apiAddFriend, apiCancelAddFriend, apiGetFriendRequests } from '../../services/user.service';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { apiGetCreateConv } from '../../services/chat.service';
 
 function UserItem(props) {
     const { friend } = props;
+    const { t } = useTranslation();
     const { user } = useSelector(state => state.userReducer);
-    const idxFriend = user.friends.findIndex(friendId => friendId === friend._id)
+    const idxFriend = user.friends.findIndex(f => f.userId === friend._id);
     const [friendRequests, setFriendRequests] = useState([]);
     const [sentFriendRequests, setSentFriendRequests] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const [isAddFriend, setIsAddFriend] = useState(true);
     const [isConfirm, setIsConfirm] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const func = async () => {
@@ -47,25 +51,38 @@ function UserItem(props) {
         setSearchParams({ userId: friend._id })
     }
 
+    const handleMessage = async () => {
+        let conversationId = user.friends.find(f => f?.userId === friend._id)?.conversationId;
+        if (!conversationId) {
+            const response = await apiGetCreateConv(friend._id);
+            conversationId = response?.data?.conversationId;
+        }
+        if (conversationId) navigate(`/messages?convId=${conversationId}`);
+    };
+
     return (<>
-        <div className='user-item' onClick={() => hanldeClickFriend(friend)}>
+        {(friend?._id !== user?._id) && <div className='user-item' onClick={() => hanldeClickFriend(friend)}>
             <div className='user-item__image'><img src={friend?.profilePicture} /></div>
             <div className='user-item__name'>{friend?.name}</div>
             <div className='user-item__right'>
-                {idxFriend === -1 && <>
+                {idxFriend === -1 ? <>
                     {isConfirm ? <div>
-                        <button onClick={handleAddFriend}>confirm</button>
+                        <button onClick={handleAddFriend} className='btn'>{t("friends.confirm")}</button>
                         {/* <button>delete</button> */}
                     </div> : <div>
                         {isAddFriend
-                            ? <button onClick={handleAddFriend}>add_friend</button>
-                            : <button onClick={handleCacelAddFriend}>cancel_add_friend</button>
+                            ? <button onClick={handleAddFriend} className='btn'>{t("friends.add_friend")}</button>
+                            : <button onClick={handleCacelAddFriend} >{t("friends.cancel_friend")}</button>
                         }
                         {/* <button>remove</button> */}
                     </div>}
+                </> : <>
+                    <div>
+                    <button onClick={handleMessage} className='btn'>{t("friends.message")}</button>
+                    </div>
                 </>}
             </div>
-        </div>
+        </div>}
     </>)
 }
 

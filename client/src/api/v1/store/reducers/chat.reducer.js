@@ -7,8 +7,8 @@ const initState = {
 
 const chatReducer = (state = initState, action) => {
     try {
-        console.log('action.convs::', action.convs)
-        console.log('action.type::', action.type)
+        // console.log('action.convs::', action.convs)
+        // console.log('action.type::', action.type)
         switch (action.type) {
             case actionTypes.GET_CONVERSATIONS:
                 return {

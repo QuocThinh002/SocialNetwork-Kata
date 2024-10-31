@@ -18,12 +18,14 @@ class ChatController {
             }
 
             const messages = await ChatModel.find({ deleted: false, conversationId }).lean();
+            // console.log('messages::', messages)
 
             // Trích xuất userIds độc nhất
             const userIds = Array.from(new Set(messages.map(msg => msg.senderId)));
-
+            console.log('userIds::', userIds)
             // Tạo danh sách promises để lấy thông tin người dùng
-            const userPromises = userIds.map(userId => UserModel.findById(userId).lean().select('_id name profilePicture'));
+            const userPromises = userIds?.map(userId => UserModel.findById(userId).select('_id name profilePicture').lean());
+            // console.log('::ing here::')
 
             // Đợi tất cả promises hoàn thành và lấy thông tin người dùng
             const users = await Promise.all(userPromises);
@@ -54,12 +56,31 @@ class ChatController {
 
             // console.log('data::', data)
 
+            const conversation = await ConversationModel.findById(conversationId).select('-deleted -lastMessage').lean();
+            let friendInfo;
+            if (conversation?.isGroup == false) {
+                const friendId = conversation?.members?.find(member => member.userId.toString() != userId)?.userId;
+                // console.log("friendID:::::" , friendId)
+                friendInfo = await UserModel.findById(friendId).select("profilePicture name").lean();
+
+            }
+            
+            const memberList = await Promise.all(conversation?.members?.map(async (member) => (await UserModel.findById(member?.userId).select('_id name profilePicture').lean())));
+
+            console.log("friendIFO::", friendInfo)
+
             return res.status(200).json({
                 success: !!data,
-                messages: data ? data : []
+                messages: data ? data : [],
+                conversation,
+                friendInfo,
+                memberList
             })
         } catch (error) {
-
+            return res.status(500).json({
+                success: false,
+                messages: []
+            })
         }
     }
 
@@ -105,7 +126,7 @@ class ChatController {
                         conv.members.map(async (member) => {
                             const user = await UserModel.findById(member.userId).select('profilePicture name').lean();
                             return {
-                                userId: user.userId,
+                                userId: user._id,
                                 profilePicture: user.profilePicture,
                                 name: user.name
                             };
@@ -197,6 +218,82 @@ class ChatController {
             return res.status(200).json({
                 success: !!conversation,
                 conversationId: conversation ? conversation._id : null
+            })
+        } catch (error) {
+            console.error('error', error)
+            return res.status(500).json({
+                success: false
+            })
+        }
+    }
+
+    messageForward = async (req, res) => {
+        console.log('[POST]::messageForward::')
+        try {
+            const { userId } = req.user;
+            const { messageForward, imagesForward, selectedFriends } = req.body;
+            // console.log("req::", req.body)
+            // console.log({ selectedFriends })
+
+            // console.log(userId)
+            if (selectedFriends?.length < 1 || !selectedFriends) {
+                return res.status().json({
+                    success: false,
+                    message: 'it nhat 1 nguoi'
+                })
+            }
+
+            await Promise.all(selectedFriends?.map(async (friendId) => {
+                let conversation = await ConversationModel.findOne({
+                    isGroup: false,
+                    'members.userId': { $all: [userId, friendId] }
+                }).lean();
+    
+                if (!conversation) {
+                        conversation = await ConversationModel.create({
+                            isGroup: false,
+                            members: [{ userId }, { userId: friendId }]
+                        });
+                    
+                }
+
+                await ChatModel.create({
+                    senderId: userId,
+                    content: messageForward,
+                    images: imagesForward,
+                    conversationId: conversation._id 
+                });
+            }));
+
+            // console.log('create okok::')
+            return res.status(200).json({
+                success: true,
+            })
+        } catch (error) {
+            console.error('error', error)
+            return res.status(500).json({
+                success: false
+            })
+        }
+    }
+
+    addMembersGroupChat = async (req, res) => {
+        console.log('[POST]::addMembersGroupChat::')
+        try {
+            const { userId } = req.user;
+            const { convId, selectedFriends } = req.body;
+            console.log(convId, selectedFriends)
+
+            const members = []
+            selectedFriends.forEach(friendId => {
+                members.push({userId: friendId})
+            });
+
+            const conversation = await ConversationModel.findByIdAndUpdate(convId, {$push: {members: {$each: members}}}, {new: true})
+
+            // console.log('create okok::')
+            return res.status(200).json({
+                success: !!conversation
             })
         } catch (error) {
             console.error('error', error)

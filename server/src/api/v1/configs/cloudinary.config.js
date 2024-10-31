@@ -43,9 +43,33 @@ const uploadBuffer = async (imageBuffer) => {
   }
 };
 
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    if (file.mimetype.startsWith("image")) {
+      return {
+        folder: 'Kata/images',
+        resource_type: 'image', // Định dạng ảnh
+        allowed_formats: ['jpg', 'png', 'jpeg']
+      };
+    } else if (file.mimetype.startsWith("video")) {
+      return {
+        folder: 'Kata/videos',
+        resource_type: 'video', // Định dạng video
+        allowed_formats: ['mp4', 'mkv', 'avi']
+      };
+    }
+  },
+});
+
+const upload = multer({ storage: storage }).fields([
+  { name: 'images', maxCount: 10 },
+  { name: 'video', maxCount: 1 },
+]);
+
 
 const uploadImage = multer({ storage: imageStorage });
 const uploadVideo = multer({ storage: videoStorage });
 
-module.exports = { uploadImage, uploadVideo, uploadBuffer };
+module.exports = { uploadImage, uploadVideo, uploadBuffer, upload };
 

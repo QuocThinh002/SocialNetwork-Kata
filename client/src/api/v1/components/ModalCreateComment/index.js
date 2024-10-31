@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './modalCreatePost.scss';
+import './modalCreateComment.scss';
 import { useDispatch } from 'react-redux';
 
 import { apiCreatePost } from '../../services/post.service';
 import { getName } from '../../utils/index';
 
-function ModalCreatePost(props) {
-    const { handleToggleModal, user } = props;
+function ModalCreateComment(props) {
+    const { handleToggleModal, user, post, parentTop } = props;
     const { t } = useTranslation();
     const [postContent, setPostContent] = useState('');
     const [isLoading, setIsLoading] = useState(false); // New state for loading
@@ -45,6 +45,10 @@ function ModalCreatePost(props) {
 
         const formData = new FormData();
         formData.append('content', postContent);
+        formData.append('typePost', 'comment');
+        formData.append('parent', post?._id);
+        if (parentTop)
+            formData.append('parentTop', parentTop);
         images.forEach((image) => {
             formData.append('images', image);
         });
@@ -230,4 +234,4 @@ function ModalCreatePost(props) {
     );
 }
 
-export default ModalCreatePost;
+export default ModalCreateComment;

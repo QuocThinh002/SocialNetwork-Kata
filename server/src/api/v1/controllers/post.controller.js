@@ -64,10 +64,10 @@ class PostController {
         try {
             console.log('[POST]::create::');
             const { userId } = req.user;
-            const { content } = req.body;
+            const { content, typePost="post", parent=null, parentTop=null } = req.body;
 
             // console.log(req.body)
-            // console.log('files::', req?.files)
+            console.log('files::', req?.files)
 
             if (!userId) {
                 return res.status(200).json({
@@ -76,16 +76,25 @@ class PostController {
                 })
             }
 
-            console.log({content})
+            console.log({ content })
+            console.log("req.files:::", req?.files);
 
-            const images = req?.files?.map(item => item.path);
+            const images = req?.files?.images?.map(item => item.path);
+            const video = req?.files?.video[0] ? req.files?.video[0].path : null;
+
+            console.log({ images, video })
+            
 
             let post;
-            if (content || images.length > 0) {
+            if (content || images.length > 0 || video) {
                 post = await PostModel.create({
                     userId,
                     content,
-                    images
+                    images,
+                    video,
+                    typePost,
+                    parentTop,
+                    parent
                 });
             }
 

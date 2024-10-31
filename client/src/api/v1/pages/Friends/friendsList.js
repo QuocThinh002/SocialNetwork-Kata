@@ -1,6 +1,6 @@
 import ContactSearch from '../../components/ContactSearch';
 import './friendsList.scss';
-import { FaSistrix, FaUserGroup } from 'react-icons/fa6';
+import { FaAngleLeft, FaAngleRight, FaSistrix, FaUserGroup } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom';
@@ -14,6 +14,12 @@ function FriendsList() {
     const { t } = useTranslation();
     const [searchParams, setSearchParams] = useSearchParams()
     const [friendList, setFriendList] = useState(friends);
+    const [isShowLeft, setIsShowLeft] = useState(true);
+
+    const handleToggleShow = () => {
+        setIsShowLeft(!isShowLeft);
+    }
+
 
     useEffect(() => {
         setFriendList(friends);
@@ -30,7 +36,7 @@ function FriendsList() {
     const handleSearchFriends = useCallback(
         debounce((value) => {
             if (value !== '') {
-                const regex = new RegExp(value, 'i');
+                const regex = new RegExp(removeAccents(value), 'i');
                 const list = friends.filter(friend => regex.test(removeAccents(friend.name)));
                 setFriendList(list);
             } else {
@@ -50,44 +56,55 @@ function FriendsList() {
     // console.log(friends)
     return (<>
         <div className="friends-list">
-
-            <div className='friends-list__title'>
-                <FaUserGroup />
-                {t("friends.friends_list")}
-            </div>
-
-            <div className='friends-list__search'>
-                <div className='friends-list__search__group'>
-                    <span><FaSistrix /></span>
-                    <input
-                        type='text'
-                        id='search-friends'
-                        name='searchFriends'
-                        autoComplete='off'
-                        required
-                        onChange={handleChange}
-                        placeholder={t("friends.search_friends")}
-                    />
+            <div className='friends-list__show'>
+                <div className='friends-list__show__btn'>
+                    {isShowLeft
+                        ? <span onClick={handleToggleShow}><FaAngleLeft /></span>
+                        : <span onClick={handleToggleShow}><FaAngleRight /></span>
+                    }
                 </div>
             </div>
 
-            <div className='friends-list__card'>
-                <span>{t("friends.friends")} ({friends?.length || 0})</span>
+            <div className={`friends-list__left ` + (isShowLeft ? "" : "none")}>
+                <div className='friends-list__title'>
+                    <FaUserGroup />
+                    {t("friends.friends_list")}
+                </div>
 
-                {friendList?.length > 0 ? friendList?.map(friend => (<div
-                    key={friend?._id}
-                    className='friends-list__item'
-                    onClick={() => handleClickFriend(friend)}
-                >
-                    <div className='friends-list__item__image'>
-                        <img src={friend?.profilePicture || `${window.location.origin}/assets/image/sky.jpg`} />
+                <div className='friends-list__search'>
+                    <div className='friends-list__search__group'>
+                        <span><FaSistrix /></span>
+                        <input
+                            type='text'
+                            id='search-friends'
+                            name='searchFriends'
+                            autoComplete='off'
+                            required
+                            onChange={handleChange}
+                            placeholder={t("friends.search_friends")}
+                        />
                     </div>
-                    <div className='friends-list__item__name'>{friend?.name}</div>
-                </div>)) : <div>
-                    {t("friends.not_found")}
-                </div>}
-            </div>
+                </div>
 
+                <div className='friends-list__card'>
+                    <span>{t("friends.friends")} ({friends?.length || 0})</span>
+
+                    {friendList?.length > 0 ? friendList?.map(friend => (<div
+                        key={friend?._id}
+                        className='friends-list__item'
+                        onClick={() => handleClickFriend(friend)}
+                    >
+                        <div className='friends-list__item__image'>
+                            <img src={friend?.profilePicture || `${window.location.origin}/assets/image/sky.jpg`} />
+                        </div>
+                        <div className='friends-list__item__name'>{friend?.name}</div>
+                    </div>)) : <div>
+                        {t("friends.not_found")}
+                    </div>}
+                </div>
+
+            </div>
+            
         </div>
     </>)
 }

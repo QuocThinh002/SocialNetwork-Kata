@@ -15,6 +15,7 @@ const postSchema = new mongoose.Schema(
         likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
         parentTop: { type: Schema.Types.ObjectId, ref: 'Post' },
         parent: { type: Schema.Types.ObjectId, ref: 'Post' },
+        typePost: { type: String, enum: ['post', 'postshare', 'comment'], default: 'post' },
         audience: {type: String, enum: ['friends', 'private'], default: 'friends'},
         deleted: {
             type: Boolean,

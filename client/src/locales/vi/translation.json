@@ -5,7 +5,8 @@
     "friends": "Bạn bè",
     "notifications": "Thông báo",
     "messages": "Tin nhắn",
-    "settings": "Cài đặt"
+    "settings": "Cài đặt",
+    "find_user": "Tìm kiếm người dùng"
   },
   "home": {
     "create_post": "Bạn đang nghĩ gì, {{name}}?",
@@ -40,7 +41,8 @@
     "message": "Nhắn tin",
     "mutual_friends": "{{number}} bạn chung",
     "add_friends": "Thêm bạn",
-    "unfriend": "Huỷ kết bạn"
+    "cancel_friend": "Hủy kết bạn",
+    "unfriend": "Xóa bạn"
   },
   "notifications": {
     "new": "Mới",
@@ -53,7 +55,10 @@
     "no_messages": "Không có tin nhắn",
     "send": "Gửi",
     "add_friend": "Thêm bạn",
-    "create_group_chat": "Tạo nhóm chat"
+    "create_group_chat": "Tạo nhóm chat",
+    "forward": "Chuyển tiếp",
+    "search_conv": "Tìm kiếm hội thoại"
+
   },
   "settings": {
     "account": "Cài đặt tài khoản",
@@ -97,7 +102,12 @@
     "friends_list": "Danh sách bạn bè",
     "friends": "Bạn bè",
     "search_friends": "Tìm kiếm bạn bè",
-    "not_found": "Không tìm thấy!"
+    "not_found": "Không tìm thấy!",
+    "confirm": "Xác nhận",
+    "add_friend": "Thêm bạn",
+    "cancel_friend": "Hủy kết bạn",
+    "unfriend": "Xóa bạn",
+    "message": "Nhắn tin"
   },
   "group": {
     "create_group_chat": "Tạo nhóm nhắn tin",
@@ -105,6 +115,10 @@
     "create_group_chat_fail": "Tạo nhóm nhắn tin thất bại!",
     "select_image_valid": "Vui lòng chọn ảnh hợp lệ!",
     "cancel": "Huỷ",
-    "enter_the_group_name": "Nhập tên nhóm"
+    "enter_the_group_name": "Nhập tên nhóm",
+    "conv_info": "Thông tin hội thoại",
+    "group_info": "Thông tin nhóm",
+    "member_list": "Danh sách nhóm",
+    "add_member": "Thêm thành viên"
   }
 }

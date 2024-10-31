@@ -9,9 +9,11 @@ function ConversationItem(props) {
     const [searchParams, setSearchParams] = useSearchParams()
     const convId = searchParams.get('convId');
     const members = conv?.members || [];
-    const convAvtFriend = conv && (user?.userId === members[0]?.userId ? members[1]?.profilePicture : members[0]?.profilePicture)
-    const convNameFriend = conv && (user?.userId === members[0]?.userId ? members[1]?.name : members[0]?.name)
+    const convAvtFriend = conv && (user?._id === members[0]?.userId ? members[1]?.profilePicture : members[0]?.profilePicture)
+    const convNameFriend = conv && (user?._id === members[0]?.userId ? members[1]?.name : members[0]?.name)
 
+    // console.log("userid::", user?._id);
+    // console.log("member::", members);
     // console.log(conv)
     
     const handleClickConv = () => {
@@ -22,9 +24,9 @@ function ConversationItem(props) {
         <div onClick={handleClickConv} className={'conv-item ' + (convId === conv._id ? 'chatting' : '')}>
             <div className='conv-item__image'>
                 {conv?.isGroup ? <>
-                    {conv?.avatar ? <img src={conv?.avatar} /> : <>
-                        {members?.map(item => <img src={item.profilePicture} />)}
-                    </>}
+                    {conv?.avatar ? <img src={conv?.avatar} /> : <div className='conv-item__images'>
+                        {members?.slice(0,4)?.map(item => <img src={item.profilePicture} />)}
+                    </div>}
                 </> : <>
                     <img src={convAvtFriend} />
                 </>}

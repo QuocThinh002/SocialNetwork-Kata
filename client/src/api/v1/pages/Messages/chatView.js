@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { socket } from '../../../../socket';
-import { FaRegFaceSmile, FaTrash, FaXmark } from 'react-icons/fa6';
+import { FaBars, FaRegFaceSmile, FaShare, FaTrash, FaXmark } from 'react-icons/fa6';
 import { RiSendPlane2Fill } from 'react-icons/ri';
 import { MdAttachFile } from 'react-icons/md';
 import './chatView.scss';
@@ -9,11 +9,12 @@ import EmojiPicker from 'emoji-picker-react';
 import { apiGetConversation } from '../../services/chat.service';
 import { useSearchParams } from 'react-router-dom';
 import ChatInfo from "./chatInfo";
+import ModalForward from '../../components/ModalForward';
 
 const ChatView = () => {
     const { user } = useSelector(state => state.userReducer);
-    const [displayChatInfo, setDisplayChatInfo] = useState(false);
     const [messages, setMessages] = useState([]);
+    const [conv, setConv] = useState();
     const [msg, setMsg] = useState('');
     const [images, setImages] = useState([]);
     const [imagesUrl, setImagesUrl] = useState([]);
@@ -24,6 +25,12 @@ const ChatView = () => {
     const typingTimeoutRef = useRef(null); // Ref để theo dõi thời gian gõ
     const [searchParams, setSearchParams] = useSearchParams()
     const convId = searchParams.get('convId');
+    const [isOpenForward, setIsOpenForward] = useState(false);
+    const [messageForward, setMessageForward] = useState('');
+    const [imagesForward, setImagesForward] = useState([]);
+    const [isOpenInfo, setIsOpenInfo] = useState(true);
+    const [friendInfo, setFriendInfo] = useState();
+    const [memberList, setMemberList] = useState([]);
 
 
     const MAX_IMAGES = 6;
@@ -155,14 +162,25 @@ const ChatView = () => {
         // };
     }, []);
 
+    // console.log("convId::", convId)
+
     useEffect(() => {
         const func = async () => {
             const response = await apiGetConversation(convId);
-            const msgs = response?.data?.messages || '';
-
+            const msgs = response?.data?.messages || [];
+            const conversation = response?.data?.conversation;
+            const friendInfo = response?.data?.friendInfo;
+            const memberList = response?.data?.memberList;
+            setMemberList(memberList);
+            setFriendInfo(friendInfo);
+            setConv(conversation);
             setMessages(msgs);
+            // setConv(response?.data)
+            // console.log('conversation::::::', response)
         };
         func();
+        // alert(convId)
+        // console.log("messages::", messages)
     }, [convId]);
 
     useEffect(() => {
@@ -171,11 +189,40 @@ const ChatView = () => {
         }
     }, [convId, messages]);
 
+    const handleForward = (message) => {
+        // alert(message)
+        setMessageForward(message);
+        setIsOpenForward(true);
+    }
+
+    const handleImagesForward = (imgs) => {
+        setImagesForward(imgs);
+        console.log(imagesForward)
+        setIsOpenForward(true);
+    }
+
     return (<>
-        {convId  ? <>
+        {convId ? <>
+            {isOpenForward && <ModalForward setIsOpenModal={setIsOpenForward} messageForward={messageForward} imagesForward={imagesForward} />}
             <div className='chat-view'>
                 <div className='chat-view__head'>
-                    avt
+                    <div className='chat-view__head__avatar'>
+                        {conv?.isGroup ? <>
+                            {conv?.avatar ? <img src={conv?.avatar} /> : <div className='chat-view__head__avatars'>
+                                {memberList?.slice(0,4)?.map(item => <img src={item.profilePicture} />)}
+                            </div>}
+                            {conv?.name ? <h2>{conv?.name}</h2> : <h2>No Name Group</h2>}
+                        </> : <>
+                            <img src={friendInfo?.profilePicture} />
+                            {friendInfo?.name ? <h2>{friendInfo?.name}</h2> : <h2>No Name Group</h2>}
+                            
+                        </>}
+                    </div>
+                    
+
+                    <div onClick={() => setIsOpenInfo(!isOpenInfo)} className='chat-view__head__info'>
+                        <FaBars />
+                    </div>
                 </div>
                 <div className={'chat-view__main isPreview-' + imagesUrl.length}>
                     {messages.length !== 0 && <div>
@@ -187,14 +234,16 @@ const ChatView = () => {
                                     </div>
                                     <span className='box-msg__sender-name'>{message.senderName}</span>
                                 </div>}
-                                {message.content && <p className={'content-msg'}>{message.content}</p>}
+                                {message.content && <p className={'content-msg'}>{message.content}<span onClick={() => handleForward(message.content)} className='chat-forward'><FaShare /></span></p>}
                                 {message.images && message.images.length > 0 && (
                                     <div className={'content-img content-img-' + ((message.images.length === 1) ? 'one' : (message.images.length % 2 === 1 ? 'odd' : 'even'))}>
                                         {message.images.map((image, idx) => (
                                             <img src={image} alt={`img-${idx}`} key={idx} />
                                         ))}
+                                        <span onClick={() => handleImagesForward(message.images)} className='chat-forward'><FaShare /></span>
                                     </div>
                                 )}
+
                             </div>
                         ))}
 
@@ -253,12 +302,12 @@ const ChatView = () => {
                 </div>
             </div>
         </> : <>
-                <div className='chat-none'>
-                    Chao mung ban den voi Kata
-                </div>
+            <div className='chat-none'>
+                Chao mung ban den voi Kata
+            </div>
         </>}
 
-        {displayChatInfo && <ChatInfo />}
+        {isOpenInfo && (conv || friendInfo) && <ChatInfo conv={conv} friendInfo={friendInfo} memberList={memberList}  />}
     </>
     );
 };

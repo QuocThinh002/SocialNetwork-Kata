@@ -15,6 +15,7 @@ router.patch('/updateMe',
 router.patch('/cancelAddFriend', UserController.cancelAddFriend)
 
 router.post('/addFriend', UserController.addFriend)
+router.post('/unfriend', UserController.unfriend)
 
 router.get('/friendRequests', UserController.getFriendRequests)
 router.get('/friends', UserController.getFriends);

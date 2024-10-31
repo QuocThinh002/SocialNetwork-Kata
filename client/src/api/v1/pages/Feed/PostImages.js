@@ -22,33 +22,40 @@ function PostImages({ images, postId }) {
 
     return (
         <div className="post-images">
-            {/* Track để chứa các ảnh */}
+
             <div
                 className="post-images__track"
                 style={{
                     transform: `translateX(-${currentIndex * 100}%)`,
                 }}
             >
-                {images.map((image, idx) => (
+                {images?.map((image, idx) => (
                     <div className="post-images__item" key={idx}>
                         <img src={image} alt={`post-image-${idx}`} />
                     </div>
                 ))}
             </div>
 
-            {/* Nút trượt trái và phải */}
-            <div
-                className="post-images__control post-images__control--left"
-                onClick={handlePrev}
-            >
-                <FaArrowLeft />
-            </div>
-            <div
-                className="post-images__control post-images__control--right"
-                onClick={handleNext}
-            >
-                <FaArrowRight />
-            </div>
+            <span className='post-images__page-number'>
+                {currentIndex+1}/{images?.length}
+            </span>
+
+            {images?.length > 1 && <>
+                {currentIndex != 0 && <div
+                    className="post-images__control post-images__control--left"
+                    onClick={handlePrev}
+                >
+                    <FaArrowLeft />
+                </div>}
+                
+                {currentIndex != images?.length - 1 && <div
+                    className="post-images__control post-images__control--right"
+                    onClick={handleNext}
+                >
+                    <FaArrowRight />
+                </div>}
+            </>}
+
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { domain } from '../utils/constant';
 
 export const apiGetConversation = async (convId) => {
     try {
+        // console.log("getConversation::")
         const response = await axiosConfig({
             method: 'get',
             url: `${domain}/chat/conversation/${convId}`,
@@ -47,6 +48,39 @@ export const apiCreateGroup = async (data) => {
             headers: {
                 'Content-Type': "multipart/form-data"
             }
+        })
+        console.log('response::::', response)
+        return response
+
+    } catch (error) {
+        console.log('errr:' ,error)
+    }
+}
+
+export const apiAddMembersGroupChat = async (data) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/chat/addMembersGroupChat/`,
+            data
+        })
+        console.log('response::::', response)
+        return response
+
+    } catch (error) {
+        console.log('errr:' ,error)
+    }
+}
+
+export const apiMessageForward = async (data) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/chat/messageForward/`,
+            data,
+            // headers: {
+            //     'Content-Type': "multipart/form-data"
+            // }
         })
         console.log('response::::', response)
         return response

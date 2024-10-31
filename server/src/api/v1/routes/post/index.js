@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const {uploadImage} = require('../../configs/cloudinary.config')
+const { uploadImage, uploadVideo, upload } = require('../../configs/cloudinary.config')
 
 const PostController = require('../../controllers/post.controller');
 
 router.get('/', PostController.getPosts)
 
-router.post('/create', [uploadImage.array('images', 10)], PostController.create)
-
+router.post('/create', upload, PostController.create);
+  
 module.exports = router

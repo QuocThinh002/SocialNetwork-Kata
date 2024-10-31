@@ -82,6 +82,20 @@ export const apiAddFriend = async (friendId) => {
     }
 }
 
+export const apiUnfriend = async (friendId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `${domain}/user/unfriend`,
+            data: friendId
+        })
+
+        return response
+    } catch (error) {
+
+    }
+}
+
 export const apiGetFriendRequests = async () => {
     try {
         const response = await axiosConfig({
