@@ -6,6 +6,7 @@ const { uploadImage, uploadVideo, upload } = require('../../configs/cloudinary.c
 const PostController = require('../../controllers/post.controller');
 
 router.get('/', PostController.getPosts)
+router.get('/comments', PostController.getComments)
 
 router.post('/create', upload, PostController.create);
   

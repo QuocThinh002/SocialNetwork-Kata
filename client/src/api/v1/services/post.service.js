@@ -32,3 +32,19 @@ export const apiGetPosts = async () => {
         console.log('errr:' ,error)
     }
 }
+
+
+export const apiGetComments = async (data) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `${domain}/post/comments/`,
+            params: data
+        })
+        console.log('response::::', response)
+        return response
+
+    } catch (error) {
+        console.log('errr:' ,error)
+    }
+}

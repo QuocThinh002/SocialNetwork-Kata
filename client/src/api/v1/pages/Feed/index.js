@@ -12,6 +12,7 @@ import PostContent from './PostContent';
 import { useTranslation } from 'react-i18next';
 import { getName } from '../../utils';
 import { BiLike, BiSolidLike } from 'react-icons/bi';
+import ModalCreateComment from '../../components/ModalCreateComment';
 
 function Feed() {
     const { t } = useTranslation();
@@ -19,7 +20,15 @@ function Feed() {
     const navigate = useNavigate();
     const [isShowCreatePost, setIsShowCreatePost] = useState(false); // Trạng thái để hiển thị modal tạo bài viết
     const [posts, setPosts] = useState([]); // Danh sách bài post
-    const [isComment, setIsComment] = useState[false];
+    const [isComment, setIsComment] = useState({});
+
+    // Hàm bật/tắt comment cho từng post
+    const toggleComment = (postId) => {
+        setIsComment(prev => ({
+            ...prev,
+            [postId]: !prev[postId]
+        }));
+    };
 
     const handleToggleCreatePost = () => {
         setIsShowCreatePost(!isShowCreatePost); // Đóng mở modal tạo bài viết
@@ -65,7 +74,7 @@ function Feed() {
                             >
                                 {t("post.what_mind", { name: getName(user?.name) })}
                             </div>
-                            dang video, like, share, bookmarks, dang stroy, xem stories, , binh luan
+                            {/* dang video, like, share, bookmarks, dang stroy, xem stories, , binh luan */}
                         </div>
                     </div>
 
@@ -139,10 +148,13 @@ function Feed() {
                                             }
                                         </span>
 
-                                        <span className='post__foot__bookmark'><FaBookmark /><FaRegBookmark /></span>
-                                        <span className='post__foot__comment'><FaComment /></span>
+                                        {/* <span className='post__foot__bookmark'><FaBookmark /><FaRegBookmark /></span> */}
+                                        <span className='post__foot__comment' onClick={() => toggleComment(post._id)}><FaComment /></span>
                                         <span className='post__foot__share'><FaShareFromSquare /></span>
                                     </div>
+                                    {isComment[post._id] && (
+                                        <ModalCreateComment post={post} user={user} handleToggleModal={() => toggleComment(post._id)} />
+                                    )}
                                 </div>
                             ))}
                     </div>

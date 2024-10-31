@@ -80,7 +80,8 @@
     "post": "Đăng",
     "friends":"Bạn bè",
     "private":"Riêng tư",
-    "cancel": "Huỷ"
+    "cancel": "Huỷ",
+    "create_comment": "Bình luận"
   },
   "errors": {
     "required_field": "Trường này là bắt buộc",

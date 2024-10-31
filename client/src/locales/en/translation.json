@@ -78,7 +78,8 @@
     "post": "Post",
     "friends": "Friends",
     "private": "Private",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "create_comment": "Comment"
   },
   "errors": {
     "required_field": "This field is required",

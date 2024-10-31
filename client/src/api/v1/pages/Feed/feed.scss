@@ -195,7 +195,15 @@
     &__foot {
         padding: 8px;
         font-size: 2rem;
+
+        display: flex;
+        justify-content: space-around;
+
+        &__comment {
+            cursor: pointer;
+        }
     }
+
 }
 
 

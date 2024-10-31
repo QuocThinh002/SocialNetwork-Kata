@@ -9,11 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import './modalCreateComment.scss';
 import { useDispatch } from 'react-redux';
 
-import { apiCreatePost } from '../../services/post.service';
+import { apiCreatePost, apiGetComments } from '../../services/post.service';
 import { getName } from '../../utils/index';
 
 function ModalCreateComment(props) {
-    const { handleToggleModal, user, post, parentTop } = props;
+    const { handleToggleModal, user, post, parentTop = null } = props;
     const { t } = useTranslation();
     const [postContent, setPostContent] = useState('');
     const [isLoading, setIsLoading] = useState(false); // New state for loading
@@ -25,6 +25,7 @@ function ModalCreateComment(props) {
     const [images, setImages] = useState([]);
     const [imagesUrl, setImagesUrl] = useState([]);
     const [video, setVideo] = useState(null);
+    const [comments, setComments] = useState([]);
     const textareaRef = useRef(null);
 
 
@@ -47,8 +48,13 @@ function ModalCreateComment(props) {
         formData.append('content', postContent);
         formData.append('typePost', 'comment');
         formData.append('parent', post?._id);
-        if (parentTop)
-            formData.append('parentTop', parentTop);
+
+        const tmp_parentTop = parentTop ? parentTop : post?._id;
+        formData.append('parentTop', tmp_parentTop);
+
+        console.log("parentTop:::", tmp_parentTop);
+        console.log("parent:::", post?._id)
+
         images.forEach((image) => {
             formData.append('images', image);
         });
@@ -134,6 +140,23 @@ function ModalCreateComment(props) {
     };
 
 
+    useEffect(() => {
+        const func = async () => {
+            const parentTop = post?.parentTop ? post?.parentTop : post?._id;
+            const parent = post?._id;
+            const typePost = 'commnet';
+
+            console.log('POST__content:::', post?.content)
+            const response = await apiGetComments({ parentTop });
+            const data = response?.data?.comments || [];
+            setComments(data);
+        };
+        func();
+    }, []);
+
+    console.log("commnets:::", comments)
+
+
     return (
         <>
             <div className={`modal  ${isLoading ? 'modal--disabled' : ''}`}>
@@ -142,7 +165,43 @@ function ModalCreateComment(props) {
                         <FaXmark />
                     </button>
 
-                    <h2 className='modal__title'>{t("post.create_post")}</h2>
+                    <h2 className='modal__title'>{t("post.create_comment")}</h2>
+                    <div className='comment-box'>
+                        {comments?.map((comment) => (
+                            <div className='comment-item' key={comment._id}>
+                                <div className='comment-item__header'>
+                                    <img
+                                        className='comment-item__avatar'
+                                        src={comment?.author?.profilePicture}
+                                        alt={comment?.author?.name}
+                                    />
+                                    <span className='comment-item__author'>{comment?.author?.name}</span>
+                                </div>
+                                <div className='comment-item__content'>
+                                    {comment?.content && (
+                                        <div className='comment-item__text'>{comment.content}</div>
+                                    )}
+                                    {comment?.images?.length > 0 && comment?.images.map(image => (
+                                        <img
+                                            className='comment-item__image'
+                                            src={image}
+                                            alt={`Comment by ${comment.author?.name}`}
+                                        />
+                                    ))}
+                                    {comment?.video && (
+                                        <video className='comment-item__video' controls>
+                                            <source src={comment.video} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+
+
+
                     <form onSubmit={handleSubmit} className="form-create-post">
                         <div className='form-create-post__head'>
                             <div className='form-create-post__profile-picture'>
